@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class WorkoutPlan extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'email',
+        'duration_minutes_per_session',
+    ];
 }
