@@ -1,11 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-
-import { Checkbox } from '@/components/ui/checkbox'
-import { Label } from '@/components/ui/label'
 import { Dumbbell } from 'lucide-react'
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/Components/ui/card'
+import Checkbox from '@/Components/Checkbox'
+import { Label } from '@/Components/ui/label'
+import { Button } from '@/Components/ui/button'
 
 type MuscleGroup = 'chest' | 'back' | 'legs' | 'arms' | 'shoulders' | 'core'
 
@@ -139,9 +145,10 @@ export default function WorkoutGenerator() {
                                             checked={selectedMuscles.includes(
                                                 group.id
                                             )}
-                                            onCheckedChange={() =>
-                                                handleToggleMuscle(group.id)
-                                            }
+
+                                            // onCheckedChange={() =>
+                                            //     handleToggleMuscle(group.id)
+                                            // }
                                         />
                                         <Label htmlFor={`muscle-${group.id}`}>
                                             {group.label}
@@ -163,9 +170,9 @@ export default function WorkoutGenerator() {
                                         <Checkbox
                                             id={`day-${day}`}
                                             checked={selectedDays.includes(day)}
-                                            onCheckedChange={() =>
-                                                handleToggleDay(day)
-                                            }
+                                            // onCheckedChange={() =>
+                                            //     handleToggleDay(day)
+                                            // }
                                         />
                                         <Label htmlFor={`day-${day}`}>
                                             {day}
