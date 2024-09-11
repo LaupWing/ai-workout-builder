@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\WorkoutPlanSets;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -7,10 +8,8 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'daysOfWeek' => WorkoutPlanSets::getDayOptions(),
+
     ]);
 });
 

@@ -24,16 +24,6 @@ const muscleGroups: { id: MuscleGroup; label: string }[] = [
     { id: 'core', label: 'Core' },
 ]
 
-const daysOfWeek = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-]
-
 // Mock function to simulate AI workout generation
 const generateWorkout = (
     selectedMuscles: MuscleGroup[],
@@ -97,7 +87,9 @@ const generateWorkout = (
     return weeklyWorkout
 }
 
-export default function WorkoutGenerator({}: PageProps<{
+export default function WorkoutGenerator({
+    daysOfWeek,
+}: PageProps<{
     daysOfWeek: string[]
 }>) {
     const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
@@ -193,7 +185,10 @@ export default function WorkoutGenerator({}: PageProps<{
                                                 handleToggleDay(day)
                                             }
                                         />
-                                        <Label htmlFor={`day-${day}`}>
+                                        <Label
+                                            className="capitalize"
+                                            htmlFor={`day-${day}`}
+                                        >
                                             {day}
                                         </Label>
                                     </div>
