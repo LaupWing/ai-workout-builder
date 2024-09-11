@@ -1,9 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
-import { Dumbbell, Clock } from 'lucide-react'
+import { Dumbbell, Clock, ExternalLink, Link } from 'lucide-react'
 
 type Exercise = {
     name: string
     muscleGroup: string
+    videoLink: string
 }
 
 type WorkoutDay = {
@@ -16,16 +17,29 @@ export default function ExampleWorkoutPlan() {
         Monday: {
             mainFocus: 'Chest & Triceps',
             exercises: [
-                { name: '3 x 10 Bench Press', muscleGroup: 'Chest' },
+                {
+                    name: '3 x 10 Bench Press',
+                    muscleGroup: 'Chest',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/benchpress',
+                },
                 {
                     name: '3 x 12 Incline Dumbbell Press',
                     muscleGroup: 'Upper Chest',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/inclinepress',
                 },
                 {
                     name: '3 x 15 Push-ups',
                     muscleGroup: 'Chest, Shoulders, Triceps',
+                    videoLink: 'https://twitter.com/youraccount/status/pushups',
                 },
-                { name: '3 x 12 Tricep Pushdowns', muscleGroup: 'Triceps' },
+                {
+                    name: '3 x 12 Tricep Pushdowns',
+                    muscleGroup: 'Triceps',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/triceppushdowns',
+                },
             ],
         },
         Tuesday: {
@@ -34,35 +48,82 @@ export default function ExampleWorkoutPlan() {
                 {
                     name: '3 x 10 Squats',
                     muscleGroup: 'Quadriceps, Glutes, Hamstrings',
+                    videoLink: 'https://twitter.com/youraccount/status/squats',
                 },
                 {
                     name: '3 x 12 Lunges',
                     muscleGroup: 'Quadriceps, Glutes, Hamstrings',
+                    videoLink: 'https://twitter.com/youraccount/status/lunges',
                 },
-                { name: '3 x 15 Leg Press', muscleGroup: 'Quadriceps, Glutes' },
-                { name: '3 x 20 Crunches', muscleGroup: 'Core' },
+                {
+                    name: '3 x 15 Leg Press',
+                    muscleGroup: 'Quadriceps, Glutes',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/legpress',
+                },
+                {
+                    name: '3 x 20 Crunches',
+                    muscleGroup: 'Core',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/crunches',
+                },
             ],
         },
         Wednesday: 'Rest day',
         Thursday: {
             mainFocus: 'Back & Biceps',
             exercises: [
-                { name: '3 x 10 Pull-ups', muscleGroup: 'Back, Biceps' },
-                { name: '3 x 12 Bent-over Rows', muscleGroup: 'Back' },
-                { name: '3 x 15 Lat Pulldowns', muscleGroup: 'Back, Biceps' },
-                { name: '3 x 10 Bicep Curls', muscleGroup: 'Biceps' },
+                {
+                    name: '3 x 10 Pull-ups',
+                    muscleGroup: 'Back, Biceps',
+                    videoLink: 'https://twitter.com/youraccount/status/pullups',
+                },
+                {
+                    name: '3 x 12 Bent-over Rows',
+                    muscleGroup: 'Back',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/bentoverrows',
+                },
+                {
+                    name: '3 x 15 Lat Pulldowns',
+                    muscleGroup: 'Back, Biceps',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/latpulldowns',
+                },
+                {
+                    name: '3 x 10 Bicep Curls',
+                    muscleGroup: 'Biceps',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/bicepcurls',
+                },
             ],
         },
         Friday: {
             mainFocus: 'Shoulders & Core',
             exercises: [
-                { name: '3 x 10 Military Press', muscleGroup: 'Shoulders' },
+                {
+                    name: '3 x 10 Military Press',
+                    muscleGroup: 'Shoulders',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/militarypress',
+                },
                 {
                     name: '3 x 12 Lateral Raises',
                     muscleGroup: 'Lateral Deltoids',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/lateralraises',
                 },
-                { name: '3 x 15 Front Raises', muscleGroup: 'Front Deltoids' },
-                { name: '3 x 30s Plank', muscleGroup: 'Core' },
+                {
+                    name: '3 x 15 Front Raises',
+                    muscleGroup: 'Front Deltoids',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/frontraises',
+                },
+                {
+                    name: '3 x 30s Plank',
+                    muscleGroup: 'Core',
+                    videoLink: 'https://twitter.com/youraccount/status/plank',
+                },
             ],
         },
         Saturday: {
@@ -71,12 +132,25 @@ export default function ExampleWorkoutPlan() {
                 {
                     name: '3 x 12 Lunges',
                     muscleGroup: 'Quadriceps, Glutes, Hamstrings',
+                    videoLink: 'https://twitter.com/youraccount/status/lunges',
                 },
-                { name: '3 x 15 Leg Press', muscleGroup: 'Quadriceps, Glutes' },
-                { name: '3 x 12 Calf Raises', muscleGroup: 'Calves' },
+                {
+                    name: '3 x 15 Leg Press',
+                    muscleGroup: 'Quadriceps, Glutes',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/legpress',
+                },
+                {
+                    name: '3 x 12 Calf Raises',
+                    muscleGroup: 'Calves',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/calfraises',
+                },
                 {
                     name: '3 x 15 Russian Twists',
                     muscleGroup: 'Core, Obliques',
+                    videoLink:
+                        'https://twitter.com/youraccount/status/russiantwists',
                 },
             ],
         },
@@ -121,10 +195,23 @@ export default function ExampleWorkoutPlan() {
                                             {workout.exercises.map(
                                                 (exercise, index) => (
                                                     <li key={index}>
-                                                        <span className="font-medium">
-                                                            {exercise.name}
-                                                        </span>
-                                                        <br />
+                                                        <div className="flex items-center justify-between">
+                                                            <span className="font-medium">
+                                                                {exercise.name}
+                                                            </span>
+                                                            <Link
+                                                                href={
+                                                                    exercise.videoLink
+                                                                }
+                                                                target="_blank"
+                                                                className="text-primary hover:text-primary/80 transition-colors"
+                                                            >
+                                                                <ExternalLink className="w-4 h-4" />
+                                                                <span className="sr-only">
+                                                                    Watch video
+                                                                </span>
+                                                            </Link>
+                                                        </div>
                                                         <span className="text-sm text-gray-600">
                                                             Targets:{' '}
                                                             {
