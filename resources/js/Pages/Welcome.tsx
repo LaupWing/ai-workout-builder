@@ -11,6 +11,7 @@ import { Checkbox } from '@/Components/ui/checkbox'
 import { Label } from '@/Components/ui/label'
 import { Button } from '@/Components/ui/button'
 import { Slider } from '@/Components/ui/slider'
+import { PageProps } from '@/types'
 
 type MuscleGroup = 'chest' | 'back' | 'legs' | 'arms' | 'shoulders' | 'core'
 
@@ -96,7 +97,11 @@ const generateWorkout = (
     return weeklyWorkout
 }
 
-export default function WorkoutGenerator() {
+export default function WorkoutGenerator({
+    days,
+}: PageProps<{
+    days: string[]
+}>) {
     const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
     const [duration, setDuration] = useState<number>(60)
