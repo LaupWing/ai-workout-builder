@@ -1,5 +1,13 @@
 import { Link, Head } from '@inertiajs/react'
 import { PageProps } from '@/types'
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/Components/ui/card'
 
 export default function Welcome({
     auth,
@@ -18,11 +26,15 @@ export default function Welcome({
     return (
         <>
             <Head title="Welcome" />
-            <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-                {/* <Card>
+            <div className="bg-gray-50 flex items-center justify-center min-h-screen text-black/50 dark:bg-black dark:text-white/50">
+                <Card>
                     <CardHeader>
-                        <CardTitle>Card Title</CardTitle>
-                        <CardDescription>Card Description</CardDescription>
+                        <CardTitle>
+                            <h1 className="text-2xl">AI Workout Generator</h1>
+                        </CardTitle>
+                        <CardDescription>
+                            Customize your weekly workout plan
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <p>Card Content</p>
@@ -30,7 +42,7 @@ export default function Welcome({
                     <CardFooter>
                         <p>Card Footer</p>
                     </CardFooter>
-                </Card> */}
+                </Card>
             </div>
         </>
     )
