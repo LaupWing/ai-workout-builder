@@ -94,14 +94,14 @@ export default function WorkoutGenerator({
     daysOfWeek: string[]
     muscleGroups: { id: string; name: MuscleGroup }[]
 }>) {
-    const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
+    const [selectedMuscles, setSelectedMuscles] = useState<string[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
     const [duration, setDuration] = useState<number>(60)
     const [weeklyWorkout, setWeeklyWorkout] = useState<
         Record<string, string[]>
     >({})
 
-    const handleToggleMuscle = (muscle: MuscleGroup) => {
+    const handleToggleMuscle = (muscle: string) => {
         setSelectedMuscles((prev) =>
             prev.includes(muscle)
                 ? prev.filter((m) => m !== muscle)
@@ -121,12 +121,12 @@ export default function WorkoutGenerator({
 
     const handleGenerateWorkout = () => {
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
-            const generatedWorkout = generateWorkout(
-                selectedMuscles,
-                selectedDays,
-                duration
-            )
-            setWeeklyWorkout(generatedWorkout)
+            // const generatedWorkout = generateWorkout(
+            //     selectedMuscles,
+            //     selectedDays,
+            //     duration
+            // )
+            // setWeeklyWorkout(generatedWorkout)
         }
     }
 
@@ -163,8 +163,11 @@ export default function WorkoutGenerator({
                                                 handleToggleMuscle(group.id)
                                             }
                                         />
-                                        <Label htmlFor={`muscle-${group.id}`}>
-                                            {group.label}
+                                        <Label
+                                            className="capitalize"
+                                            htmlFor={`muscle-${group.id}`}
+                                        >
+                                            {group.name}
                                         </Label>
                                     </div>
                                 ))}

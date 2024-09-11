@@ -10,9 +10,7 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'daysOfWeek' => WorkoutPlanSets::getDayOptions(),
-        'muscleGroups' => collect(MuscleGroup::all())->map(function ($muscleGroup) {
-            return $muscleGroup->name;
-        }),
+        'muscleGroups' => MuscleGroup::all(),
     ]);
 });
 
