@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MuscleGroup;
 use App\Models\WorkoutPlanSets;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -9,7 +10,9 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'daysOfWeek' => WorkoutPlanSets::getDayOptions(),
-
+        'muscleGroups' => collect(MuscleGroup::all())->map(function ($muscleGroup) {
+            return $muscleGroup->name;
+        }),
     ]);
 });
 
