@@ -1,17 +1,5 @@
-'use client'
-
 import { useState } from 'react'
-import { Dumbbell } from 'lucide-react'
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/Components/ui/card'
-import { Label } from '@/Components/ui/label'
-import { Button } from '@/Components/ui/button'
-import { Checkbox } from '@/Components/ui/checkbox'
+import { Dumbbell, Clock } from 'lucide-react'
 
 type MuscleGroup = 'chest' | 'back' | 'legs' | 'arms' | 'shoulders' | 'core'
 
@@ -37,31 +25,46 @@ const daysOfWeek = [
 // Mock function to simulate AI workout generation
 const generateWorkout = (
     selectedMuscles: MuscleGroup[],
-    workoutDays: string[]
+    workoutDays: string[],
+    duration: number
 ) => {
     const workouts: Record<MuscleGroup, string[]> = {
         chest: [
             '3 x 10 Bench Press',
             '3 x 12 Incline Dumbbell Press',
             '3 x 15 Push-ups',
+            '3 x 12 Cable Flyes',
         ],
         back: [
             '3 x 10 Pull-ups',
             '3 x 12 Bent-over Rows',
             '3 x 15 Lat Pulldowns',
+            '3 x 12 Face Pulls',
         ],
-        legs: ['3 x 10 Squats', '3 x 12 Lunges', '3 x 15 Leg Press'],
+        legs: [
+            '3 x 10 Squats',
+            '3 x 12 Lunges',
+            '3 x 15 Leg Press',
+            '3 x 12 Calf Raises',
+        ],
         arms: [
             '3 x 10 Bicep Curls',
             '3 x 12 Tricep Pushdowns',
             '3 x 15 Hammer Curls',
+            '3 x 12 Skull Crushers',
         ],
         shoulders: [
             '3 x 10 Military Press',
             '3 x 12 Lateral Raises',
             '3 x 15 Front Raises',
+            '3 x 12 Reverse Flyes',
         ],
-        core: ['3 x 20 Crunches', '3 x 30s Plank', '3 x 15 Russian Twists'],
+        core: [
+            '3 x 20 Crunches',
+            '3 x 30s Plank',
+            '3 x 15 Russian Twists',
+            '3 x 20 Leg Raises',
+        ],
     }
 
     let weeklyWorkout: Record<string, string[]> = {}
@@ -69,12 +72,10 @@ const generateWorkout = (
 
     workoutDays.forEach((day) => {
         const dayWorkout: string[] = []
-        for (let j = 0; j < 3; j++) {
+        const exercisesPerDay = Math.floor(duration / 15) // Assuming each exercise takes about 15 minutes
+        for (let j = 0; j < exercisesPerDay; j++) {
             const muscle = selectedMuscles[muscleIndex % selectedMuscles.length]
-            const exercise =
-                workouts[muscle][
-                    Math.floor(Math.random() * workouts[muscle].length)
-                ]
+            const exercise = workouts[muscle][j % workouts[muscle].length]
             dayWorkout.push(exercise)
             muscleIndex++
         }
@@ -87,6 +88,7 @@ const generateWorkout = (
 export default function WorkoutGenerator() {
     const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
+    const [duration, setDuration] = useState<number>(60)
     const [weeklyWorkout, setWeeklyWorkout] = useState<
         Record<string, string[]>
     >({})
@@ -105,11 +107,16 @@ export default function WorkoutGenerator() {
         )
     }
 
+    const handleDurationChange = (value: number[]) => {
+        setDuration(value[0])
+    }
+
     const handleGenerateWorkout = () => {
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
             const generatedWorkout = generateWorkout(
                 selectedMuscles,
-                selectedDays
+                selectedDays,
+                duration
             )
             setWeeklyWorkout(generatedWorkout)
         }
@@ -124,8 +131,7 @@ export default function WorkoutGenerator() {
                         AI Weekly Workout Generator
                     </CardTitle>
                     <CardDescription>
-                        Select muscle groups and workout days for a personalized
-                        weekly plan
+                        Customize your weekly workout plan
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -179,6 +185,23 @@ export default function WorkoutGenerator() {
                                     </div>
                                 ))}
                             </div>
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+                                <Clock className="w-5 h-5" />
+                                Workout Duration:
+                            </h3>
+                            <Slider
+                                min={30}
+                                max={120}
+                                step={15}
+                                value={[duration]}
+                                onValueChange={handleDurationChange}
+                                className="mb-2"
+                            />
+                            <p className="text-sm text-gray-600">
+                                {duration} minutes per session
+                            </p>
                         </div>
                         <Button
                             onClick={handleGenerateWorkout}
