@@ -97,10 +97,8 @@ const generateWorkout = (
     return weeklyWorkout
 }
 
-export default function WorkoutGenerator({
-    days,
-}: PageProps<{
-    days: string[]
+export default function WorkoutGenerator({}: PageProps<{
+    daysOfWeek: string[]
 }>) {
     const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
