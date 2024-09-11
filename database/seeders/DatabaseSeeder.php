@@ -76,6 +76,81 @@ class DatabaseSeeder extends Seeder
                 'muscle_group' => 'back',
                 'name' => 'One Arm Dumbbell Row',
                 'twitter_url' => 'https://x.com/LaupWing1994/status/1791440603605049823'
+            ],
+            [
+                'muscle_group' => 'legs',
+                'name' => 'Barbell Squat',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440609137377748'
+            ],
+            [
+                'muscle_group' => 'legs',
+                'name' => 'Leg Extension',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440611767148803'
+            ],
+            [
+                'muscle_group' => 'legs',
+                'name' => 'Stiff Leg Deadlift',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440615110062544'
+            ],
+            [
+                'muscle_group' => 'legs',
+                'name' => 'Lunges',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440617966350516'
+            ],
+            [
+                'muscle_group' => 'legs',
+                'name' => 'Calf Raise',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440620969455907'
+            ],
+            [
+                'muscle_group' => 'arms',
+                'name' => 'Dumbbell Bicep Curl',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791442306895122876'
+            ],
+            [
+                'muscle_group' => 'arms',
+                'name' => 'Dumbbell Hammer Curl',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791442311261339708'
+            ],
+            [
+                'muscle_group' => 'arms',
+                'name' => 'Dumbbel Skull Crusher',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791442314574942333'
+            ],
+            [
+                'muscle_group' => 'arms',
+                'name' => 'Cable Rope Tricep Extension',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791442318668763565'
+            ],
+            [
+                'muscle_group' => 'core',
+                'name' => 'Hanging Leg Raise',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791442324922237037'
+            ],
+            [
+                'muscle_group' => 'core',
+                'name' => 'Cable Crunch',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791442327950528901'
+            ],
+            [
+                'muscle_group' => 'shoulders',
+                'name' => 'Overhead Dumbbell Shoulder Press',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440626367471790'
+            ],
+            [
+                'muscle_group' => 'shoulders',
+                'name' => 'Dumbbell Side Lateral Raise',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440630159151155'
+            ],
+            [
+                'muscle_group' => 'shoulders',
+                'name' => 'Dumbbell Reare Delt Fly',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440632726147349'
+            ],
+            [
+                'muscle_group' => 'shoulders',
+                'name' => 'Dumbbell Front Raise',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791442301538980318'
             ]
         ];
     }
