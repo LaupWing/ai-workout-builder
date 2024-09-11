@@ -52,7 +52,31 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Machine Chest Press',
                 'twitter_url' => 'https://x.com/LaupWing1994/status/1791440053354299546'
             ],
-            []
+            [
+                'muscle_group' => 'back',
+                'name' => 'Lat Pulldown',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440591043080319'
+            ],
+            [
+                'muscle_group' => 'back',
+                'name' => 'Lat Pulldown Close Grip',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440594461503872'
+            ],
+            [
+                'muscle_group' => 'back',
+                'name' => 'Bent Over Barbell Row',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440597925953744'
+            ],
+            [
+                'muscle_group' => 'back',
+                'name' => 'One Arm Cable Row',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440600929100250'
+            ],
+            [
+                'muscle_group' => 'back',
+                'name' => 'One Arm Dumbbell Row',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440603605049823'
+            ]
         ];
     }
 }
