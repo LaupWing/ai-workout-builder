@@ -1,5 +1,16 @@
 import { useState } from 'react'
 import { Dumbbell, Clock } from 'lucide-react'
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/Components/ui/card'
+import { Checkbox } from '@/Components/ui/checkbox'
+import { Label } from '@/Components/ui/label'
+import { Button } from '@/Components/ui/button'
+import { Slider } from '@/Components/ui/slider'
 
 type MuscleGroup = 'chest' | 'back' | 'legs' | 'arms' | 'shoulders' | 'core'
 
@@ -193,7 +204,7 @@ export default function WorkoutGenerator() {
                             </h3>
                             <Slider
                                 min={30}
-                                max={120}
+                                max={180}
                                 step={15}
                                 value={[duration]}
                                 onValueChange={handleDurationChange}
