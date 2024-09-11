@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('workout_plan_sets', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('workout_plan_id');
+            $table->foreign('workout_plan_id')
+                ->references('id')
+                ->on('workout_plans')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('exercise_id');
+            $table->foreign('exercise_id')
+                ->references('id')
+                ->on('exercises')
+                ->onDelete('cascade');
+            $table->integer('reps');
+            $table->integer('sets');
             $table->timestamps();
         });
     }
