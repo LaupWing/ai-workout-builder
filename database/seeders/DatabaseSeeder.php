@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         foreach ($muscleGroups as $muscleGroup) {
             MuscleGroup::create(['name' => $muscleGroup]);
         }
-        [
+        $exercises = [
             [
                 'muscle_group' => 'chest',
                 'name' => 'Bench Press',
@@ -178,5 +178,14 @@ class DatabaseSeeder extends Seeder
                 'trained_muscle_groups' => 'Front Shoulders'
             ]
         ];
+
+        foreach ($exercises as $exercise) {
+            $muscleGroup = MuscleGroup::where('name', $exercise['muscle_group'])->first();
+            $muscleGroup->exercises()->create([
+                'name' => $exercise['name'],
+                'twitter_url' => $exercise['twitter_url'],
+                'trained_muscle_groups' => $exercise['trained_muscle_groups']
+            ]);
+        }
     }
 }
