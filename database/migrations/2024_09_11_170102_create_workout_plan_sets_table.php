@@ -25,6 +25,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->integer('reps');
             $table->integer('sets');
+            $table->enum('day', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
             $table->timestamps();
         });
     }
