@@ -19,8 +19,7 @@ return new class extends Migration
                 ->on('muscle_groups')
                 ->onDelete('cascade');
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('video_url')->nullable();
+            $table->string('twitter_url');
             $table->timestamps();
         });
     }
