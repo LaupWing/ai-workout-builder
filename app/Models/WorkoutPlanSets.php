@@ -27,4 +27,17 @@ class WorkoutPlanSets extends Model
     {
         return $this->belongsTo(Exercise::class);
     }
+
+    public function getDaysAttribute(): array
+    {
+        return [
+            'monday' => 'Monday',
+            'tuesday' => 'Tuesday',
+            'wednesday' => 'Wednesday',
+            'thursday' => 'Thursday',
+            'friday' => 'Friday',
+            'saturday' => 'Saturday',
+            'sunday' => 'Sunday',
+        ];
+    }
 }
