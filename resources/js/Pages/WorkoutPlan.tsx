@@ -12,7 +12,7 @@ type WorkoutDay = {
     exercises: Exercise[]
 }
 
-export default function ExampleWorkoutPlan() {
+export default function WorkoutPlan() {
     const exampleWorkout: Record<string, WorkoutDay | string> = {
         Monday: {
             mainFocus: 'Chest & Triceps',
