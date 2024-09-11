@@ -26,5 +26,13 @@ class DatabaseSeeder extends Seeder
         foreach ($muscleGroups as $muscleGroup) {
             MuscleGroup::create(['name' => $muscleGroup]);
         }
+        [
+            [
+                'muscle_group_id' => 1,
+                'name' => 'Bench Press',
+                'twitter_url' => 'https://twitter.com/search?q=Bench%20Press'
+            ],
+
+        ];
     }
 }
