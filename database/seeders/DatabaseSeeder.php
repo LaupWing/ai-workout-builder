@@ -28,11 +28,31 @@ class DatabaseSeeder extends Seeder
         }
         [
             [
-                'muscle_group_id' => 1,
+                'muscle_group' => 'chest',
                 'name' => 'Bench Press',
-                'twitter_url' => 'https://twitter.com/search?q=Bench%20Press'
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440038615535782'
             ],
-
+            [
+                'muscle_group' => 'chest',
+                'name' => 'Incline Dumbbell Press',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440042642014417'
+            ],
+            [
+                'muscle_group' => 'chest',
+                'name' => 'Cable Chest Fly',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440046471483810'
+            ],
+            [
+                'muscle_group' => 'chest',
+                'name' => 'Cable Chest Fly High Low',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440049910796728'
+            ],
+            [
+                'muscle_group' => 'chest',
+                'name' => 'Machine Chest Press',
+                'twitter_url' => 'https://x.com/LaupWing1994/status/1791440053354299546'
+            ],
+            []
         ];
     }
 }
