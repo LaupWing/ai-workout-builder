@@ -145,10 +145,7 @@ export default function WorkoutGenerator() {
                                             checked={selectedMuscles.includes(
                                                 group.id
                                             )}
-
-                                            // onCheckedChange={() =>
-                                            //     handleToggleMuscle(group.id)
-                                            // }
+                                            onCheckedChange={() => {}}
                                         />
                                         <Label htmlFor={`muscle-${group.id}`}>
                                             {group.label}
