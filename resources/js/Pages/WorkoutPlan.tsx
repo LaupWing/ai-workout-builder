@@ -199,18 +199,18 @@ export default function WorkoutPlan() {
                                                             <span className="font-medium">
                                                                 {exercise.name}
                                                             </span>
-                                                            <Link
+                                                            {/* <Link
                                                                 href={
                                                                     exercise.videoLink
                                                                 }
                                                                 target="_blank"
                                                                 className="text-primary hover:text-primary/80 transition-colors"
-                                                            >
-                                                                <ExternalLink className="w-4 h-4" />
-                                                                <span className="sr-only">
-                                                                    Watch video
-                                                                </span>
-                                                            </Link>
+                                                            > */}
+                                                            <ExternalLink className="w-4 h-4" />
+                                                            <span className="sr-only">
+                                                                Watch video
+                                                            </span>
+                                                            {/* </Link> */}
                                                         </div>
                                                         <span className="text-sm text-gray-600">
                                                             Targets:{' '}
