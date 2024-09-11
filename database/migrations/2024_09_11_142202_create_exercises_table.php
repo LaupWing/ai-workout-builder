@@ -18,7 +18,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('muscle_groups')
                 ->onDelete('cascade');
-            $table->string('trained_muscle_groups');
+            $table->string('trained_muscles');
             $table->string('name');
             $table->string('twitter_url');
             $table->timestamps();
