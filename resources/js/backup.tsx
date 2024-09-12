@@ -1,7 +1,5 @@
-'use client'
-
 import { useState } from 'react'
-import { Dumbbell, Clock, Target, Star } from 'lucide-react'
+import { Dumbbell, Clock } from 'lucide-react'
 import {
     Card,
     CardContent,
@@ -13,6 +11,7 @@ import { Checkbox } from '@/Components/ui/checkbox'
 import { Label } from '@/Components/ui/label'
 import { Button } from '@/Components/ui/button'
 import { Slider } from '@/Components/ui/slider'
+import { PageProps } from '@/types'
 
 type MuscleGroup = 'chest' | 'back' | 'legs' | 'arms' | 'shoulders' | 'core'
 
@@ -25,68 +24,85 @@ const muscleGroups: { id: MuscleGroup; label: string }[] = [
     { id: 'core', label: 'Core' },
 ]
 
-const daysOfWeek = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-]
-
 // Mock function to simulate AI workout generation
 const generateWorkout = (
     selectedMuscles: MuscleGroup[],
-    focusMuscles: MuscleGroup[],
     workoutDays: string[],
     duration: number
 ) => {
-    const workouts: Record<string, string[]> = {}
+    const workouts: Record<MuscleGroup, string[]> = {
+        chest: [
+            '3 x 10 Bench Press',
+            '3 x 12 Incline Dumbbell Press',
+            '3 x 15 Push-ups',
+            '3 x 12 Cable Flyes',
+        ],
+        back: [
+            '3 x 10 Pull-ups',
+            '3 x 12 Bent-over Rows',
+            '3 x 15 Lat Pulldowns',
+            '3 x 12 Face Pulls',
+        ],
+        legs: [
+            '3 x 10 Squats',
+            '3 x 12 Lunges',
+            '3 x 15 Leg Press',
+            '3 x 12 Calf Raises',
+        ],
+        arms: [
+            '3 x 10 Bicep Curls',
+            '3 x 12 Tricep Pushdowns',
+            '3 x 15 Hammer Curls',
+            '3 x 12 Skull Crushers',
+        ],
+        shoulders: [
+            '3 x 10 Military Press',
+            '3 x 12 Lateral Raises',
+            '3 x 15 Front Raises',
+            '3 x 12 Reverse Flyes',
+        ],
+        core: [
+            '3 x 20 Crunches',
+            '3 x 30s Plank',
+            '3 x 15 Russian Twists',
+            '3 x 20 Leg Raises',
+        ],
+    }
+
+    let weeklyWorkout: Record<string, string[]> = {}
+    let muscleIndex = 0
 
     workoutDays.forEach((day) => {
         const dayWorkout: string[] = []
         const exercisesPerDay = Math.floor(duration / 15) // Assuming each exercise takes about 15 minutes
-
-        for (let i = 0; i < exercisesPerDay; i++) {
-            let musclePool = [
-                ...selectedMuscles,
-                ...focusMuscles,
-                ...focusMuscles,
-            ] // Add focus muscles twice for higher probability
-            const selectedMuscle =
-                musclePool[Math.floor(Math.random() * musclePool.length)]
-            const exercise = `Exercise for ${selectedMuscle} (${
-                focusMuscles.includes(selectedMuscle) ? 'Focus' : 'Regular'
-            })`
+        for (let j = 0; j < exercisesPerDay; j++) {
+            const muscle = selectedMuscles[muscleIndex % selectedMuscles.length]
+            const exercise = workouts[muscle][j % workouts[muscle].length]
             dayWorkout.push(exercise)
+            muscleIndex++
         }
-
-        workouts[day] = dayWorkout
+        weeklyWorkout[day] = dayWorkout
     })
 
-    return workouts
+    return weeklyWorkout
 }
 
-export default function WorkoutGenerator() {
-    const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
-    const [focusMuscles, setFocusMuscles] = useState<MuscleGroup[]>([])
+export default function WorkoutGenerator({
+    daysOfWeek,
+    muscleGroups,
+}: PageProps<{
+    daysOfWeek: string[]
+    muscleGroups: { id: string; name: MuscleGroup }[]
+}>) {
+    const [selectedMuscles, setSelectedMuscles] = useState<string[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
     const [duration, setDuration] = useState<number>(60)
     const [weeklyWorkout, setWeeklyWorkout] = useState<
         Record<string, string[]>
     >({})
 
-    const handleToggleMuscle = (muscle: MuscleGroup) => {
+    const handleToggleMuscle = (muscle: string) => {
         setSelectedMuscles((prev) =>
-            prev.includes(muscle)
-                ? prev.filter((m) => m !== muscle)
-                : [...prev, muscle]
-        )
-    }
-
-    const handleToggleFocusMuscle = (muscle: MuscleGroup) => {
-        setFocusMuscles((prev) =>
             prev.includes(muscle)
                 ? prev.filter((m) => m !== muscle)
                 : [...prev, muscle]
@@ -105,13 +121,12 @@ export default function WorkoutGenerator() {
 
     const handleGenerateWorkout = () => {
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
-            const generatedWorkout = generateWorkout(
-                selectedMuscles,
-                focusMuscles,
-                selectedDays,
-                duration
-            )
-            setWeeklyWorkout(generatedWorkout)
+            // const generatedWorkout = generateWorkout(
+            //     selectedMuscles,
+            //     selectedDays,
+            //     duration
+            // )
+            // setWeeklyWorkout(generatedWorkout)
         }
     }
 
@@ -120,7 +135,7 @@ export default function WorkoutGenerator() {
             <Card>
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold flex items-center gap-2">
-                        <Dumbbell className="w-6 h-6 flex-shrink-0" />
+                        <Dumbbell className="w-6 h-6" />
                         AI Weekly Workout Generator
                     </CardTitle>
                     <CardDescription>
@@ -133,12 +148,6 @@ export default function WorkoutGenerator() {
                             <h3 className="text-lg font-semibold mb-2">
                                 Select Muscle Groups:
                             </h3>
-                            <p className="text-sm text-gray-600 mb-4">
-                                Check the boxes to select muscle groups. Click
-                                the star icon next to a muscle group to set it
-                                as a focus area. Focus areas will receive extra
-                                attention in your workout plan.
-                            </p>
                             <div className="space-y-2">
                                 {muscleGroups.map((group) => (
                                     <div
@@ -155,31 +164,10 @@ export default function WorkoutGenerator() {
                                             }
                                         />
                                         <Label
+                                            className="capitalize"
                                             htmlFor={`muscle-${group.id}`}
-                                            className="flex items-center gap-2"
                                         >
-                                            {group.label}
-                                            <Button
-                                                variant="outline"
-                                                size="icon"
-                                                className={`w-6 h-6 p-0 ${
-                                                    focusMuscles.includes(
-                                                        group.id
-                                                    )
-                                                        ? 'bg-primary text-primary-foreground'
-                                                        : ''
-                                                }`}
-                                                onClick={() =>
-                                                    handleToggleFocusMuscle(
-                                                        group.id
-                                                    )
-                                                }
-                                            >
-                                                <Star className="w-4 h-4" />
-                                                <span className="sr-only">
-                                                    Focus on {group.label}
-                                                </span>
-                                            </Button>
+                                            {group.name}
                                         </Label>
                                     </div>
                                 ))}
@@ -202,7 +190,10 @@ export default function WorkoutGenerator() {
                                                 handleToggleDay(day)
                                             }
                                         />
-                                        <Label htmlFor={`day-${day}`}>
+                                        <Label
+                                            className="capitalize"
+                                            htmlFor={`day-${day}`}
+                                        >
                                             {day}
                                         </Label>
                                     </div>
@@ -216,7 +207,7 @@ export default function WorkoutGenerator() {
                             </h3>
                             <Slider
                                 min={30}
-                                max={120}
+                                max={180}
                                 step={15}
                                 value={[duration]}
                                 onValueChange={handleDurationChange}
@@ -236,41 +227,17 @@ export default function WorkoutGenerator() {
                         >
                             Generate Weekly Workout
                         </Button>
-                        {focusMuscles.length > 0 && (
-                            <div className="mt-4 p-4 bg-primary/10 rounded-md">
-                                <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                                    <Target className="w-5 h-5" />
-                                    Focus Areas:
-                                </h3>
-                                <p className="text-sm">
-                                    You've chosen to focus on:
-                                    <span className="font-medium">
-                                        {' '}
-                                        {focusMuscles
-                                            .map(
-                                                (m) =>
-                                                    muscleGroups.find(
-                                                        (g) => g.id === m
-                                                    )?.label
-                                            )
-                                            .join(', ')}
-                                    </span>
-                                </p>
-                            </div>
-                        )}
                         {Object.keys(weeklyWorkout).length > 0 && (
                             <div className="mt-4">
                                 <h3 className="text-lg font-semibold mb-2">
                                     Your Weekly Workout Plan:
                                 </h3>
-                                {Object.entries(weeklyWorkout).map(
-                                    ([day, exercises]) => (
-                                        <div key={day} className="mb-4">
-                                            <h4 className="font-semibold">
-                                                {day}
-                                            </h4>
+                                {daysOfWeek.map((day) => (
+                                    <div key={day} className="mb-4">
+                                        <h4 className="font-semibold">{day}</h4>
+                                        {weeklyWorkout[day] ? (
                                             <ul className="list-disc pl-5 space-y-1">
-                                                {exercises.map(
+                                                {weeklyWorkout[day].map(
                                                     (exercise, index) => (
                                                         <li key={index}>
                                                             {exercise}
@@ -278,9 +245,13 @@ export default function WorkoutGenerator() {
                                                     )
                                                 )}
                                             </ul>
-                                        </div>
-                                    )
-                                )}
+                                        ) : (
+                                            <p className="text-gray-500 italic">
+                                                Rest day
+                                            </p>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
                         )}
                     </div>
