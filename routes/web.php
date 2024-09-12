@@ -37,39 +37,181 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) {
             "trained_muscle_groups" => $exercise->trained_muscle_groups,
         ];
     });
-    logger("You are a helpful assistant designed to create an workoutplan with only the following exercises: {$availableExercises}");
+    logger("");
 
-    // $open_ai = OpenAI::client(env("OPENAI_API_KEY"));
-
-    // $response = $open_ai->chat()->create([
-    //     "model" => "gpt-3.5-turbo-1106",
-    //     "response_format" => [
-    //         "type" => "json_object",
+    $open_ai = OpenAI::client(env("OPENAI_API_KEY"));
+    // Monday: {
+    //     mainFocus: 'Chest & Triceps',
+    //     exercises: [
+    //         {
+    //             name: '3 x 10 Bench Press',
+    //             muscleGroup: 'Chest',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/benchpress',
+    //         },
+    //         {
+    //             name: '3 x 12 Incline Dumbbell Press',
+    //             muscleGroup: 'Upper Chest',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/inclinepress',
+    //         },
+    //         {
+    //             name: '3 x 15 Push-ups',
+    //             muscleGroup: 'Chest, Shoulders, Triceps',
+    //             videoLink: 'https://twitter.com/youraccount/status/pushups',
+    //         },
+    //         {
+    //             name: '3 x 12 Tricep Pushdowns',
+    //             muscleGroup: 'Triceps',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/triceppushdowns',
+    //         },
     //     ],
-    //     "messages" => [
-    //         [
-    //             "role" => "system",
-    //             "content" => "You are a helpful assistant designed to create an workoutplan. The output should be a JSON object with the following keys: 'protein', 'bodyfat', 'calories', 'meal_plan'.
-
-    //             'protein' - The amount of protein in grams that the user should consume daily.
-
-    //             'current_bodyfat' - The exact current bodyfat percentage the user has as a number.
-
-    //             'goal_bodyfat' - The exact bodyfat percentage the user aim for as a number.
-
-    //             'calories' - The amount of calories that the user should consume daily.
-
-    //             'meal_plan' - A list of meals that the user should consume daily. Each meal should have a 'recipe_name'(name of the recipe),'calories', and 'meal_type'(breakfast, lunch, diner, or snack) key.
-
-    //             "
-    //         ],
-    //         // [
-    //         //     "role" => "user",
-    //         //     "content" => "I'm a $gender and $age years old. I'm $height cm tall and weigh $weight $unit. I'm $activity and I want to reach $goal_weight $unit in $goal_months months."
-    //         // ]
+    // },
+    // Tuesday: {
+    //     mainFocus: 'Legs & Core',
+    //     exercises: [
+    //         {
+    //             name: '3 x 10 Squats',
+    //             muscleGroup: 'Quadriceps, Glutes, Hamstrings',
+    //             videoLink: 'https://twitter.com/youraccount/status/squats',
+    //         },
+    //         {
+    //             name: '3 x 12 Lunges',
+    //             muscleGroup: 'Quadriceps, Glutes, Hamstrings',
+    //             videoLink: 'https://twitter.com/youraccount/status/lunges',
+    //         },
+    //         {
+    //             name: '3 x 15 Leg Press',
+    //             muscleGroup: 'Quadriceps, Glutes',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/legpress',
+    //         },
+    //         {
+    //             name: '3 x 20 Crunches',
+    //             muscleGroup: 'Core',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/crunches',
+    //         },
     //     ],
-    //     "max_tokens" => 4000,
-    // ]);
+    // },
+    // Wednesday: 'Rest day',
+    // Thursday: {
+    //     mainFocus: 'Back & Biceps',
+    //     exercises: [
+    //         {
+    //             name: '3 x 10 Pull-ups',
+    //             muscleGroup: 'Back, Biceps',
+    //             videoLink: 'https://twitter.com/youraccount/status/pullups',
+    //         },
+    //         {
+    //             name: '3 x 12 Bent-over Rows',
+    //             muscleGroup: 'Back',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/bentoverrows',
+    //         },
+    //         {
+    //             name: '3 x 15 Lat Pulldowns',
+    //             muscleGroup: 'Back, Biceps',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/latpulldowns',
+    //         },
+    //         {
+    //             name: '3 x 10 Bicep Curls',
+    //             muscleGroup: 'Biceps',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/bicepcurls',
+    //         },
+    //     ],
+    // },
+    // Friday: {
+    //     mainFocus: 'Shoulders & Core',
+    //     exercises: [
+    //         {
+    //             name: '3 x 10 Military Press',
+    //             muscleGroup: 'Shoulders',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/militarypress',
+    //         },
+    //         {
+    //             name: '3 x 12 Lateral Raises',
+    //             muscleGroup: 'Lateral Deltoids',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/lateralraises',
+    //         },
+    //         {
+    //             name: '3 x 15 Front Raises',
+    //             muscleGroup: 'Front Deltoids',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/frontraises',
+    //         },
+    //         {
+    //             name: '3 x 30s Plank',
+    //             muscleGroup: 'Core',
+    //             videoLink: 'https://twitter.com/youraccount/status/plank',
+    //         },
+    //     ],
+    // },
+    // Saturday: {
+    //     mainFocus: 'Legs & Core',
+    //     exercises: [
+    //         {
+    //             name: '3 x 12 Lunges',
+    //             muscleGroup: 'Quadriceps, Glutes, Hamstrings',
+    //             videoLink: 'https://twitter.com/youraccount/status/lunges',
+    //         },
+    //         {
+    //             name: '3 x 15 Leg Press',
+    //             muscleGroup: 'Quadriceps, Glutes',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/legpress',
+    //         },
+    //         {
+    //             name: '3 x 12 Calf Raises',
+    //             muscleGroup: 'Calves',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/calfraises',
+    //         },
+    //         {
+    //             name: '3 x 15 Russian Twists',
+    //             muscleGroup: 'Core, Obliques',
+    //             videoLink:
+    //                 'https://twitter.com/youraccount/status/russiantwists',
+    //         },
+    //     ],
+    // },
+    // Sunday: 'Rest day',
+    $response = $open_ai->chat()->create([
+        "model" => "gpt-3.5-turbo-1106",
+        "response_format" => [
+            "type" => "json_object",
+        ],
+        "messages" => [
+            [
+                "role" => "system",
+                "content" => "You are a helpful assistant designed to create an workoutplan with only the following exercises: {$availableExercises}. 
+                
+                The output should be a JSON object with the following keys: 'protein', 'bodyfat', 'calories', 'meal_plan'.
+
+                'protein' - The amount of protein in grams that the user should consume daily.
+
+                'current_bodyfat' - The exact current bodyfat percentage the user has as a number.
+
+                'goal_bodyfat' - The exact bodyfat percentage the user aim for as a number.
+
+                'calories' - The amount of calories that the user should consume daily.
+
+                'meal_plan' - A list of meals that the user should consume daily. Each meal should have a 'recipe_name'(name of the recipe),'calories', and 'meal_type'(breakfast, lunch, diner, or snack) key.
+
+                "
+            ],
+            // [
+            //     "role" => "user",
+            //     "content" => "I'm a $gender and $age years old. I'm $height cm tall and weigh $weight $unit. I'm $activity and I want to reach $goal_weight $unit in $goal_months months."
+            // ]
+        ],
+        "max_tokens" => 4000,
+    ]);
 
     return redirect()->back();
 });
