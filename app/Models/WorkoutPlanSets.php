@@ -28,6 +28,17 @@ class WorkoutPlanSets extends Model
         return $this->belongsTo(Exercise::class);
     }
 
+    public function focusMuscleGroup()
+    {
+        return $this->workoutPlan
+            ->workoutPlanSets
+            ->where('day', $this->day)
+            ->load('exercise.muscleGroup')
+            ->pluck('exercise.muscleGroup.name')
+            ->unique()
+            ->values();
+    }
+
     public static function getDayOptions(): array
     {
         return [
