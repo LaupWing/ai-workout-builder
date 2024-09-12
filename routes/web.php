@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Requests\GenerateWorkoutRequest;
 use App\Models\MuscleGroup;
 use App\Models\WorkoutPlanSets;
 use Illuminate\Foundation\Application;
@@ -18,9 +19,9 @@ Route::get('/workout-plan', function () {
     return Inertia::render('WorkoutPlan');
 });
 
-Route::post('/generate-workout-plan', function (Request $request) {
-    // $data = $request->validated();
-
+Route::post('/generate-workout-plan', function (GenerateWorkoutRequest $request) {
+    $data = $request->validated();
+    logger($data);
     // $age = $data["age"];
     // $gender = $data["gender"];
     // $height = $data["height"];
