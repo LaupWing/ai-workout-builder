@@ -197,7 +197,7 @@ export default function WorkoutGenerator({
                                 </h3>
                                 <p className="text-sm">
                                     You've chosen to focus on:
-                                    <span className="font-medium">
+                                    <span className="font-medium capitalize">
                                         {' '}
                                         {focusMuslcesFiltered
                                             .map(
