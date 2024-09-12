@@ -13,6 +13,7 @@ import { Checkbox } from '@/Components/ui/checkbox'
 import { Label } from '@/Components/ui/label'
 import { Button } from '@/Components/ui/button'
 import { Slider } from '@/Components/ui/slider'
+import { PageProps } from '@/types'
 
 type MuscleGroup = 'chest' | 'back' | 'legs' | 'arms' | 'shoulders' | 'core'
 
@@ -35,7 +36,11 @@ const daysOfWeek = [
     'Sunday',
 ]
 
-export default function WorkoutGenerator() {
+export default function WorkoutGenerator({
+    daysOfWeek,
+}: PageProps<{
+    daysOfWeek: string[]
+}>) {
     const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
     const [focusMuscles, setFocusMuscles] = useState<MuscleGroup[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
@@ -163,7 +168,10 @@ export default function WorkoutGenerator() {
                                                 handleToggleDay(day)
                                             }
                                         />
-                                        <Label htmlFor={`day-${day}`}>
+                                        <Label
+                                            className="capitalize"
+                                            htmlFor={`day-${day}`}
+                                        >
                                             {day}
                                         </Label>
                                     </div>
