@@ -43,6 +43,10 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) {
     $focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
     $selectedDays = $data["selectedDays"];
 
+    if (count($focusMuscles) > 0) {
+        $selectedMuscles = $selectedMuscles->merge($focusMuscles);
+    }
+
     logger(count($selectedMuscles));
     logger(count($focusMuscles));
     return redirect()->back();
