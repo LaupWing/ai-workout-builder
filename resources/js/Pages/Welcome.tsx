@@ -58,7 +58,13 @@ export default function WorkoutGenerator({
     const handleGenerateWorkout = () => {
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
             console.log('Generating workout plan...')
-            router.post('//generate-workout-plan', {
+            // router.post('//generate-workout-plan', {
+            //     selectedMuscles,
+            //     focusMuscles: focusMusclesFiltered,
+            //     selectedDays,
+            //     duration,
+            // })
+            router.post('/test', {
                 selectedMuscles,
                 focusMuscles: focusMusclesFiltered,
                 selectedDays,

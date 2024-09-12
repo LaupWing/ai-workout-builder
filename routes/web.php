@@ -19,9 +19,14 @@ Route::get('/workout-plan', function () {
     return Inertia::render('WorkoutPlan');
 });
 
-Route::post('/generate-workout-plan', function (GenerateWorkoutRequest $request) {
+Route::post('/test', function (GenerateWorkoutRequest $request) {
     $data = $request->validated();
     logger($data);
+    return redirect()->back();
+});
+
+Route::post('/generate-workout-plan', function (Request $request) {
+    logger($request->all());
     // $age = $data["age"];
     // $gender = $data["gender"];
     // $height = $data["height"];
@@ -86,4 +91,5 @@ Route::post('/generate-workout-plan', function (GenerateWorkoutRequest $request)
 
     // $data = json_decode($response->choices[0]->message->content);
     // return redirect(route("generated"))->with("data", $data)->with("guest_id", $guest->id);
+    return redirect()->back();
 });
