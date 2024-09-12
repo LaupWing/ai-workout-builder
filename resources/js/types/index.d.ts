@@ -14,14 +14,14 @@ export type PageProps<
 }
 
 export interface MuscleGroup {
-    id: number
+    id: string
     name: string
     created_at: string
     updated_at: string
 }
 
 export interface Exercise {
-    id: number
+    id: string
     muscle_group_id: number
     trained_muscles: string
     name: string
@@ -32,7 +32,7 @@ export interface Exercise {
 }
 
 export interface WorkoutPlanSet {
-    id: number
+    id: string
     workout_plan_id: number
     exercise_id: number
     reps: number
