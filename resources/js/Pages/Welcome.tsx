@@ -20,12 +20,11 @@ export default function WorkoutGenerator({
     daysOfWeek: string[]
     muscleGroups: MuscleGroup[]
 }>) {
-    console.log(muscleGroups)
     const [selectedMuscles, setSelectedMuscles] = useState<string[]>([])
     const [focusMuscles, setFocusMuscles] = useState<string[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
     const [duration, setDuration] = useState<number>(60)
-    const focusMuslcesFiltered = focusMuscles.filter((m) =>
+    const focusMusclesFiltered = focusMuscles.filter((m) =>
         selectedMuscles.includes(m)
     )
 
@@ -57,6 +56,12 @@ export default function WorkoutGenerator({
 
     const handleGenerateWorkout = () => {
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
+            console.log({
+                selectedMuscles,
+                focusMuscles: focusMusclesFiltered,
+                selectedDays,
+                duration,
+            })
         }
     }
 
@@ -176,7 +181,7 @@ export default function WorkoutGenerator({
                             </p>
                         </div>
 
-                        {focusMuslcesFiltered.length > 0 && (
+                        {focusMusclesFiltered.length > 0 && (
                             <div className="mt-4 p-4 bg-primary/10 rounded-md">
                                 <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
                                     <Target className="w-5 h-5" />
@@ -186,7 +191,7 @@ export default function WorkoutGenerator({
                                     You've chosen to focus on:
                                     <span className="font-medium capitalize">
                                         {' '}
-                                        {focusMuslcesFiltered
+                                        {focusMusclesFiltered
                                             .map(
                                                 (m) =>
                                                     muscleGroups.find(
