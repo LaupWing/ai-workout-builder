@@ -222,24 +222,36 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
         ],
         "max_tokens" => 4000,
     ]);
-    // Decode the response content
-    $data = json_decode($response->choices[0]->message->content, true);  // Set true to return an associative array
 
-    // Convert keys to lowercase
+    $data = json_decode($response->choices[0]->message->content, true);
     $data = array_change_key_case($data, CASE_LOWER);
 
-    // List of all days of the week
-    $daysOfWeek = WorkoutPlanSets::getDayOptions();
+    $daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-    // Ensure all days are filled with "Rest day" if missing
     foreach ($daysOfWeek as $day) {
         if (!array_key_exists($day, $data)) {
             $data[$day] = 'Rest day';
+        }
+
+        if (is_array($data[$day]) && isset($data[$day]['exercises'])) {
+            foreach ($data[$day]['exercises'] as &$exercise) {
+                $exercise['sets'] = (int) $exercise['sets'];
+
+                if (is_numeric($exercise['reps'])) {
+                    $exercise['reps'] = (int) $exercise['reps'];
+                } else {
+                    preg_match('/\d+/', $exercise['reps'], $matches);
+                    if (isset($matches[0])) {
+                        $exercise['reps'] = (int) $matches[0];
+                    } else {
+                        $exercise['reps'] = 0;
+                    }
+                }
+            }
         }
     }
 
     // Log the modified data for debugging purposes
     logger(json_encode($data));
-
     return redirect()->back();
 });
