@@ -181,7 +181,7 @@ export default function WorkoutGenerator() {
                             </h3>
                             <Slider
                                 min={30}
-                                max={120}
+                                max={180}
                                 step={15}
                                 value={[duration]}
                                 onValueChange={handleDurationChange}
