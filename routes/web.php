@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Requests\GenerateWorkoutRequest;
+use App\Models\Exercise;
 use App\Models\MuscleGroup;
 use App\Models\WorkoutPlanSets;
 use Illuminate\Foundation\Application;
@@ -26,10 +27,17 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) {
     $focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
     $selectedDays = $data["selectedDays"];
 
-    if (count($focusMuscles) > 0) {
-        $selectedMuscles = $selectedMuscles->merge($focusMuscles);
-    }
-
+    // if (count($focusMuscles) > 0) {
+    //     $selectedMuscles = $selectedMuscles->merge($focusMuscles);
+    // }
+    $availableExercises = collect(Exercise::all())->map(function ($exercise) {
+        return [
+            "id" => $exercise->id,
+            "name" => $exercise->name,
+            "trained_muscle_groups" => $exercise->trained_muscle_groups,
+        ];
+    });
+    logger("You are a helpful assistant designed to create an workoutplan with only the following exercises: {$availableExercises}");
 
     // $open_ai = OpenAI::client(env("OPENAI_API_KEY"));
 
