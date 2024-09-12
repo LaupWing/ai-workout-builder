@@ -26,21 +26,14 @@ const muscleGroups: { id: MuscleGroup; label: string }[] = [
     { id: 'core', label: 'Core' },
 ]
 
-const daysOfWeek = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-]
-
 export default function WorkoutGenerator({
     daysOfWeek,
+    muscleGroups,
 }: PageProps<{
     daysOfWeek: string[]
+    muscleGroups: { id: MuscleGroup; label: string }[]
 }>) {
+    console.log(muscleGroups)
     const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
     const [focusMuscles, setFocusMuscles] = useState<MuscleGroup[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
