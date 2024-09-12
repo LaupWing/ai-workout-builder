@@ -161,9 +161,6 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     $focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
     $selectedDays =  implode(', ', $data["selectedDays"]);
 
-    // if (count($focusMuscles) > 0) {
-    //     $selectedMuscles = $selectedMuscles->merge($focusMuscles);
-    // }
     $availableExercises = collect(Exercise::all())->map(function ($exercise) {
         return [
             "id" => $exercise->id,
@@ -228,42 +225,5 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     $data = json_decode($response->choices[0]->message->content);
     logger(json_encode($data));
 
-    return redirect()->back();
-});
-
-Route::post('/generate-workout-plan', function (Request $request) {
-    logger($request->all());
-    // $age = $data["age"];
-    // $gender = $data["gender"];
-    // $height = $data["height"];
-    // $weight = $data["weight"];
-    // $activity = $data["activity"];
-    // $goal_weight = $data["goal_weight"];
-    // $goal_months = $data["goal_months"];
-    // $unit = $data["unit"];
-
-    // $guest = Guest::create([
-    //     "age" => $age,
-    //     "gender" => $gender,
-    //     "height" => $height,
-    //     "weight" => $weight,
-    //     "activity" => $activity,
-    //     "goal_weight" => $goal_weight,
-    //     "goal_months" => $goal_months,
-    //     "unit" => $unit,
-    // ]);
-
-    // $activities = [
-    //     "sedentary" => "Little or no exercise.",
-    //     "lightly" => "Light exercise 1-3 days a week.",
-    //     "moderately" => "Moderate 3-5 days a week.",
-    //     "very" => "Hard exercise 6-7 days a week.",
-    //     "extra" => "Very hard exercise or physical job.",
-    // ];
-
-    // $activity = $activities[$activity];
-
-    // $data = json_decode($response->choices[0]->message->content);
-    // return redirect(route("generated"))->with("data", $data)->with("guest_id", $guest->id);
     return redirect()->back();
 });

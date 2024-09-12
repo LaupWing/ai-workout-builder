@@ -74,8 +74,14 @@ export default function WorkoutGenerator({
                     duration,
                 },
                 {
+                    onStart: () => {
+                        setLoading(true)
+                    },
                     onProgress: () => {
                         setLoading(true)
+                    },
+                    onSuccess: () => {
+                        setLoading(false)
                     },
                 }
             )
