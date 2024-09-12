@@ -92,6 +92,7 @@ export default function WorkoutGenerator() {
                 : [...prev, muscle]
         )
     }
+    console.log(focusMuscles)
 
     const handleToggleDay = (day: string) => {
         setSelectedDays((prev) =>
@@ -160,10 +161,8 @@ export default function WorkoutGenerator() {
                                         >
                                             {group.label}
                                         </Label>
-                                        <Button
-                                            variant="outline"
-                                            size="icon"
-                                            className={`w-6 h-6 p-0 ${
+                                        <button
+                                            className={`w-6 h-6 flex items-center justify-center rounded border shadow p-0 ${
                                                 focusMuscles.includes(group.id)
                                                     ? 'bg-yellow-400 text-primary-foreground'
                                                     : ''
@@ -178,7 +177,7 @@ export default function WorkoutGenerator() {
                                             <span className="sr-only">
                                                 Focus on {group.label}
                                             </span>
-                                        </Button>
+                                        </button>
                                     </div>
                                 ))}
                             </div>
