@@ -149,7 +149,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/workout-plan', function () {
+Route::get('/workout-plan', function (Request $request) {
+    $workoutPlan = WorkoutPlan::find($request->session()->get('workout_id'));
+    logger($workoutPlan);
     return Inertia::render('WorkoutPlan');
 });
 
@@ -270,7 +272,5 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
         }
     }
 
-    // Log the modified data for debugging purposes
-    // logger(json_encode($data));
-    return redirect()->back();
+    return redirect('/workout-plan')->with('workout_id', $workout->id);
 });
