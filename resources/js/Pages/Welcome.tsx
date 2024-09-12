@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react'
 import { Dumbbell, Clock, Target, Star } from 'lucide-react'
 import {
@@ -14,17 +12,6 @@ import { Label } from '@/Components/ui/label'
 import { Button } from '@/Components/ui/button'
 import { Slider } from '@/Components/ui/slider'
 import { MuscleGroup, PageProps } from '@/types'
-
-// type MuscleGroup = 'chest' | 'back' | 'legs' | 'arms' | 'shoulders' | 'core'
-
-// const muscleGroups: { id: MuscleGroup; label: string }[] = [
-//     { id: 'chest', label: 'Chest' },
-//     { id: 'back', label: 'Back' },
-//     { id: 'legs', label: 'Legs' },
-//     { id: 'arms', label: 'Arms' },
-//     { id: 'shoulders', label: 'Shoulders' },
-//     { id: 'core', label: 'Core' },
-// ]
 
 export default function WorkoutGenerator({
     daysOfWeek,
