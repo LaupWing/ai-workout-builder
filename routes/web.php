@@ -251,21 +251,24 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
             }
         }
     }
-    // $workout = WorkoutPlan::create([
-    //     'duration_minutes_per_session' => $duration,
-    // ]);
+    $workout = WorkoutPlan::create([
+        'duration_minutes_per_session' => $duration,
+    ]);
     logger(json_encode($data));
-    // foreach ($data as $day => $workoutData) {
-    //     if ($workoutData === 'Rest day') {
-    //         continue;
-    //     }
-    //     $workout->workoutPlanSets->create([
-    //         'sets' => $workoutData['exercises'][0]['sets'],
-    //         'reps' => $workoutData['exercises'][0]['reps'],
-    //         'exercise_id' => $workoutData['exercises'][0]['exercise_id'],
-    //         'day' => $day,
-    //     ]);
-    // }
+
+    foreach ($data as $day => $workoutData) {
+        if ($workoutData === 'Rest day') {
+            continue;
+        }
+        foreach ($workoutData['exercises'] as $exercise) {
+            $workout->workoutPlanSets()->create([
+                'sets' => $exercise['sets'],
+                'reps' => $exercise['reps'],
+                'exercise_id' => $exercise['exercise_id'],
+                'day' => $day,
+            ]);
+        }
+    }
 
     // Log the modified data for debugging purposes
     // logger(json_encode($data));
