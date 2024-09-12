@@ -263,31 +263,6 @@ export default function WorkoutGenerator() {
                                 </p>
                             </div>
                         )}
-                        {Object.keys(weeklyWorkout).length > 0 && (
-                            <div className="mt-4">
-                                <h3 className="text-lg font-semibold mb-2">
-                                    Your Weekly Workout Plan:
-                                </h3>
-                                {Object.entries(weeklyWorkout).map(
-                                    ([day, exercises]) => (
-                                        <div key={day} className="mb-4">
-                                            <h4 className="font-semibold">
-                                                {day}
-                                            </h4>
-                                            <ul className="list-disc pl-5 space-y-1">
-                                                {exercises.map(
-                                                    (exercise, index) => (
-                                                        <li key={index}>
-                                                            {exercise}
-                                                        </li>
-                                                    )
-                                                )}
-                                            </ul>
-                                        </div>
-                                    )
-                                )}
-                            </div>
-                        )}
                     </div>
                 </CardContent>
             </Card>
