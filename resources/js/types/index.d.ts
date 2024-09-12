@@ -14,7 +14,7 @@ export type PageProps<
 }
 
 export interface MuscleGroup {
-    id: number
+    id: string
     name: string
     created_at: string
     updated_at: string

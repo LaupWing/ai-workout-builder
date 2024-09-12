@@ -34,7 +34,7 @@ export default function WorkoutGenerator({
     muscleGroups: MuscleGroup[]
 }>) {
     console.log(muscleGroups)
-    const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
+    const [selectedMuscles, setSelectedMuscles] = useState<string[]>([])
     const [focusMuscles, setFocusMuscles] = useState<MuscleGroup[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
     const [duration, setDuration] = useState<number>(60)
@@ -42,7 +42,7 @@ export default function WorkoutGenerator({
         selectedMuscles.includes(m)
     )
 
-    const handleToggleMuscle = (muscle: MuscleGroup) => {
+    const handleToggleMuscle = (muscle: string) => {
         setSelectedMuscles((prev) =>
             prev.includes(muscle)
                 ? prev.filter((m) => m !== muscle)
@@ -114,7 +114,7 @@ export default function WorkoutGenerator({
                                         />
                                         <Label
                                             htmlFor={`muscle-${group.id}`}
-                                            className="flex items-center gap-2"
+                                            className="flex capitalize items-center gap-2"
                                         >
                                             {group.name}
                                         </Label>
