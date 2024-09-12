@@ -76,6 +76,9 @@ export default function WorkoutGenerator() {
     const [weeklyWorkout, setWeeklyWorkout] = useState<
         Record<string, string[]>
     >({})
+    const focusMuslcesFiltered = focusMuscles.filter((m) =>
+        selectedMuscles.includes(m)
+    )
 
     const handleToggleMuscle = (muscle: MuscleGroup) => {
         setSelectedMuscles((prev) =>
@@ -162,7 +165,12 @@ export default function WorkoutGenerator() {
                                             {group.label}
                                         </Label>
                                         <button
-                                            className={`w-6 h-6 flex items-center justify-center rounded border shadow p-0 ${
+                                            disabled={
+                                                !selectedMuscles.includes(
+                                                    group.id
+                                                )
+                                            }
+                                            className={`w-6 h-6 disabled:bg-neutral-100 disabled:text-neutral-200 disabled:border-neutral-100 flex items-center justify-center rounded border shadow p-0 ${
                                                 focusMuscles.includes(group.id)
                                                     ? 'bg-yellow-400 text-primary-foreground'
                                                     : ''
@@ -233,7 +241,7 @@ export default function WorkoutGenerator() {
                         >
                             Generate Weekly Workout
                         </Button>
-                        {focusMuscles.length > 0 && (
+                        {focusMuslcesFiltered.length > 0 && (
                             <div className="mt-4 p-4 bg-primary/10 rounded-md">
                                 <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
                                     <Target className="w-5 h-5" />
@@ -243,7 +251,7 @@ export default function WorkoutGenerator() {
                                     You've chosen to focus on:
                                     <span className="font-medium">
                                         {' '}
-                                        {focusMuscles
+                                        {focusMuslcesFiltered
                                             .map(
                                                 (m) =>
                                                     muscleGroups.find(
