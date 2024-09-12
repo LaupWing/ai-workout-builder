@@ -256,7 +256,6 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     $workout = WorkoutPlan::create([
         'duration_minutes_per_session' => $duration,
     ]);
-    logger(json_encode($data));
 
     foreach ($data as $day => $workoutData) {
         if ($workoutData === 'Rest day') {
