@@ -13,25 +13,25 @@ import { Checkbox } from '@/Components/ui/checkbox'
 import { Label } from '@/Components/ui/label'
 import { Button } from '@/Components/ui/button'
 import { Slider } from '@/Components/ui/slider'
-import { PageProps } from '@/types'
+import { MuscleGroup, PageProps } from '@/types'
 
-type MuscleGroup = 'chest' | 'back' | 'legs' | 'arms' | 'shoulders' | 'core'
+// type MuscleGroup = 'chest' | 'back' | 'legs' | 'arms' | 'shoulders' | 'core'
 
-const muscleGroups: { id: MuscleGroup; label: string }[] = [
-    { id: 'chest', label: 'Chest' },
-    { id: 'back', label: 'Back' },
-    { id: 'legs', label: 'Legs' },
-    { id: 'arms', label: 'Arms' },
-    { id: 'shoulders', label: 'Shoulders' },
-    { id: 'core', label: 'Core' },
-]
+// const muscleGroups: { id: MuscleGroup; label: string }[] = [
+//     { id: 'chest', label: 'Chest' },
+//     { id: 'back', label: 'Back' },
+//     { id: 'legs', label: 'Legs' },
+//     { id: 'arms', label: 'Arms' },
+//     { id: 'shoulders', label: 'Shoulders' },
+//     { id: 'core', label: 'Core' },
+// ]
 
 export default function WorkoutGenerator({
     daysOfWeek,
     muscleGroups,
 }: PageProps<{
     daysOfWeek: string[]
-    muscleGroups: { id: MuscleGroup; label: string }[]
+    muscleGroups: MuscleGroup[]
 }>) {
     console.log(muscleGroups)
     const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
@@ -116,7 +116,7 @@ export default function WorkoutGenerator({
                                             htmlFor={`muscle-${group.id}`}
                                             className="flex items-center gap-2"
                                         >
-                                            {group.label}
+                                            {group.name}
                                         </Label>
                                         <button
                                             disabled={
@@ -137,7 +137,7 @@ export default function WorkoutGenerator({
                                         >
                                             <Star className="w-4 h-4" />
                                             <span className="sr-only">
-                                                Focus on {group.label}
+                                                Focus on {group.name}
                                             </span>
                                         </button>
                                     </div>
