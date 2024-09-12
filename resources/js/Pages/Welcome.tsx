@@ -35,7 +35,7 @@ export default function WorkoutGenerator({
 }>) {
     console.log(muscleGroups)
     const [selectedMuscles, setSelectedMuscles] = useState<string[]>([])
-    const [focusMuscles, setFocusMuscles] = useState<MuscleGroup[]>([])
+    const [focusMuscles, setFocusMuscles] = useState<string[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
     const [duration, setDuration] = useState<number>(60)
     const focusMuslcesFiltered = focusMuscles.filter((m) =>
@@ -50,7 +50,7 @@ export default function WorkoutGenerator({
         )
     }
 
-    const handleToggleFocusMuscle = (muscle: MuscleGroup) => {
+    const handleToggleFocusMuscle = (muscle: string) => {
         setFocusMuscles((prev) =>
             prev.includes(muscle)
                 ? prev.filter((m) => m !== muscle)
@@ -204,7 +204,7 @@ export default function WorkoutGenerator({
                                                 (m) =>
                                                     muscleGroups.find(
                                                         (g) => g.id === m
-                                                    )?.label
+                                                    )?.name
                                             )
                                             .join(', ')}
                                     </span>
