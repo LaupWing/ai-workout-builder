@@ -40,11 +40,11 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) {
     //   )  
     $duration = $data["duration"];
     $selectedMuscles = MuscleGroup::whereIn('id', $data['selectedMuscles'])->get();
-    $focusMuscles = $data["focusMuscles"];
+    $focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
     $selectedDays = $data["selectedDays"];
 
-
-    logger($selectedMuscles);
+    logger(count($selectedMuscles));
+    logger(count($focusMuscles));
     return redirect()->back();
 });
 
