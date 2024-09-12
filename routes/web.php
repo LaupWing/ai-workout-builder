@@ -152,7 +152,9 @@ Route::get('/', function () {
 Route::get('/workout-plan', function (Request $request) {
     $workoutPlan = WorkoutPlan::find($request->session()->get('workout_id'));
     logger($workoutPlan);
-    return Inertia::render('WorkoutPlan');
+    return Inertia::render('WorkoutPlan', [
+        'workoutPlan' => $workoutPlan->groupByDayWithFocusMuscles(),
+    ]);
 });
 
 Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workoutPlan) {

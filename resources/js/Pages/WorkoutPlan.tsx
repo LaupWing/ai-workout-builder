@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
+import { PageProps } from '@/types'
 import { Dumbbell, Clock, ExternalLink, Link } from 'lucide-react'
 
 type Exercise = {
@@ -12,7 +13,12 @@ type WorkoutDay = {
     exercises: Exercise[]
 }
 
-export default function WorkoutPlan() {
+export default function WorkoutPlan(
+    props: PageProps<{
+        workoutPlan: any
+    }>
+) {
+    console.log(props)
     const exampleWorkout: Record<string, WorkoutDay | string> = {
         Monday: {
             mainFocus: 'Chest & Triceps',
