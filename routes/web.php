@@ -21,7 +21,30 @@ Route::get('/workout-plan', function () {
 
 Route::post('/generate', function (GenerateWorkoutRequest $request) {
     $data = $request->validated();
-    logger($data);
+    // [2024-09-12 14:26:00] local.DEBUG: array (
+    //     'duration' => 60,
+    //     'selectedMuscles' => 
+    //     array (
+    //       0 => 1,
+    //       1 => 5,
+    //     ),
+    //     'focusMuscles' => 
+    //     array (
+    //       0 => 1,
+    //     ),
+    //     'selectedDays' => 
+    //     array (
+    //       0 => 'wednesday',
+    //       1 => 'monday',
+    //     ),
+    //   )  
+    $duration = $data["duration"];
+    $selectedMuscles = MuscleGroup::whereIn('id', $data['selectedMuscles'])->get();
+    $focusMuscles = $data["focusMuscles"];
+    $selectedDays = $data["selectedDays"];
+
+
+    logger($selectedMuscles);
     return redirect()->back();
 });
 
