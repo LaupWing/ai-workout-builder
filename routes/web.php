@@ -22,6 +22,7 @@ Route::get('/workout-plan', function () {
 
 Route::post('/generate', function (GenerateWorkoutRequest $request) {
     $data = $request->validated();
+    $days = WorkoutPlanSets::getDayOptions();
     $duration = $data["duration"];
     $selectedMuscles = MuscleGroup::whereIn('id', $data['selectedMuscles'])->get();
     $focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
@@ -191,18 +192,21 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) {
                 "role" => "system",
                 "content" => "You are a helpful assistant designed to create an workoutplan with only the following exercises: {$availableExercises}. 
                 
-                The output should be a JSON object with the following keys: 'protein', 'bodyfat', 'calories', 'meal_plan'.
+                The output should be a JSON object with the days as keys: {$days}.
 
-                'protein' - The amount of protein in grams that the user should consume daily.
+                If it is a rest day it should only be a string with the value 'Rest day'.
 
-                'current_bodyfat' - The exact current bodyfat percentage the user has as a number.
+                If it is a workout day it should be an object with the following keys: 'mainFocus', 'exercises'.
 
-                'goal_bodyfat' - The exact bodyfat percentage the user aim for as a number.
+                'mainFocus' - The main muscle groups that the user should focus on that day.
 
-                'calories' - The amount of calories that the user should consume daily.
+                'exercises' - A list of exercises that the user should do that day. Each exercise should have a 'exercise_id', 'sets', and 'reps' key.
 
-                'meal_plan' - A list of meals that the user should consume daily. Each meal should have a 'recipe_name'(name of the recipe),'calories', and 'meal_type'(breakfast, lunch, diner, or snack) key.
+                'exercise_id' - The id of the exercise that the user should do.
 
+                'sets' - The amount of sets that the user should do for the exercise.
+
+                'reps' - The amount of reps that the user should do for the exercise.
                 "
             ],
             // [
