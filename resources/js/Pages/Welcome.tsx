@@ -159,28 +159,26 @@ export default function WorkoutGenerator() {
                                             className="flex items-center gap-2"
                                         >
                                             {group.label}
-                                            <Button
-                                                variant="outline"
-                                                size="icon"
-                                                className={`w-6 h-6 p-0 ${
-                                                    focusMuscles.includes(
-                                                        group.id
-                                                    )
-                                                        ? 'bg-primary text-primary-foreground'
-                                                        : ''
-                                                }`}
-                                                onClick={() =>
-                                                    handleToggleFocusMuscle(
-                                                        group.id
-                                                    )
-                                                }
-                                            >
-                                                <Star className="w-4 h-4" />
-                                                <span className="sr-only">
-                                                    Focus on {group.label}
-                                                </span>
-                                            </Button>
                                         </Label>
+                                        <Button
+                                            variant="outline"
+                                            size="icon"
+                                            className={`w-6 h-6 p-0 ${
+                                                focusMuscles.includes(group.id)
+                                                    ? 'bg-yellow-400 text-primary-foreground'
+                                                    : ''
+                                            }`}
+                                            onClick={() =>
+                                                handleToggleFocusMuscle(
+                                                    group.id
+                                                )
+                                            }
+                                        >
+                                            <Star className="w-4 h-4" />
+                                            <span className="sr-only">
+                                                Focus on {group.label}
+                                            </span>
+                                        </Button>
                                     </div>
                                 ))}
                             </div>
