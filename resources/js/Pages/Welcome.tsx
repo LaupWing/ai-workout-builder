@@ -12,6 +12,7 @@ import { Label } from '@/Components/ui/label'
 import { Button } from '@/Components/ui/button'
 import { Slider } from '@/Components/ui/slider'
 import { MuscleGroup, PageProps } from '@/types'
+import { router } from '@inertiajs/react'
 
 export default function WorkoutGenerator({
     daysOfWeek,
@@ -56,7 +57,8 @@ export default function WorkoutGenerator({
 
     const handleGenerateWorkout = () => {
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
-            console.log({
+            console.log('Generating workout plan...')
+            router.post('//generate-workout-plan', {
                 selectedMuscles,
                 focusMuscles: focusMusclesFiltered,
                 selectedDays,
