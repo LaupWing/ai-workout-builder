@@ -64,7 +64,7 @@ export default function WorkoutGenerator({
             //     selectedDays,
             //     duration,
             // })
-            router.post('/test', {
+            router.post('/generate', {
                 selectedMuscles,
                 focusMuscles: focusMusclesFiltered,
                 selectedDays,

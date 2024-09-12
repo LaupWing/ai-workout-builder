@@ -19,7 +19,7 @@ Route::get('/workout-plan', function () {
     return Inertia::render('WorkoutPlan');
 });
 
-Route::post('/test', function (GenerateWorkoutRequest $request) {
+Route::post('/generate', function (GenerateWorkoutRequest $request) {
     $data = $request->validated();
     logger($data);
     return redirect()->back();
