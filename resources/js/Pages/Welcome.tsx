@@ -35,39 +35,6 @@ const daysOfWeek = [
     'Sunday',
 ]
 
-// Mock function to simulate AI workout generation
-const generateWorkout = (
-    selectedMuscles: MuscleGroup[],
-    focusMuscles: MuscleGroup[],
-    workoutDays: string[],
-    duration: number
-) => {
-    const workouts: Record<string, string[]> = {}
-
-    workoutDays.forEach((day) => {
-        const dayWorkout: string[] = []
-        const exercisesPerDay = Math.floor(duration / 15) // Assuming each exercise takes about 15 minutes
-
-        for (let i = 0; i < exercisesPerDay; i++) {
-            let musclePool = [
-                ...selectedMuscles,
-                ...focusMuscles,
-                ...focusMuscles,
-            ] // Add focus muscles twice for higher probability
-            const selectedMuscle =
-                musclePool[Math.floor(Math.random() * musclePool.length)]
-            const exercise = `Exercise for ${selectedMuscle} (${
-                focusMuscles.includes(selectedMuscle) ? 'Focus' : 'Regular'
-            })`
-            dayWorkout.push(exercise)
-        }
-
-        workouts[day] = dayWorkout
-    })
-
-    return workouts
-}
-
 export default function WorkoutGenerator() {
     const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([])
     const [focusMuscles, setFocusMuscles] = useState<MuscleGroup[]>([])
@@ -109,13 +76,6 @@ export default function WorkoutGenerator() {
 
     const handleGenerateWorkout = () => {
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
-            const generatedWorkout = generateWorkout(
-                selectedMuscles,
-                focusMuscles,
-                selectedDays,
-                duration
-            )
-            setWeeklyWorkout(generatedWorkout)
         }
     }
 
@@ -231,16 +191,7 @@ export default function WorkoutGenerator() {
                                 {duration} minutes per session
                             </p>
                         </div>
-                        <Button
-                            onClick={handleGenerateWorkout}
-                            className="w-full"
-                            disabled={
-                                selectedMuscles.length === 0 ||
-                                selectedDays.length === 0
-                            }
-                        >
-                            Generate Weekly Workout
-                        </Button>
+
                         {focusMuslcesFiltered.length > 0 && (
                             <div className="mt-4 p-4 bg-primary/10 rounded-md">
                                 <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
@@ -263,6 +214,16 @@ export default function WorkoutGenerator() {
                                 </p>
                             </div>
                         )}
+                        <Button
+                            onClick={handleGenerateWorkout}
+                            className="w-full"
+                            disabled={
+                                selectedMuscles.length === 0 ||
+                                selectedDays.length === 0
+                            }
+                        >
+                            Generate Weekly Workout
+                        </Button>
                     </div>
                 </CardContent>
             </Card>
