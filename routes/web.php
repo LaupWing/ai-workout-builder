@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
 $workoutPlan = [
     'Monday' => [
         'mainFocus' => 'Chest & Triceps',
@@ -140,113 +139,131 @@ $workoutPlan = [
     'Sunday' => 'Rest day',
 ];
 
-?>
 
 
 Route::get('/', function () {
-return Inertia::render('Welcome', [
-'daysOfWeek' => WorkoutPlanSets::getDayOptions(),
-'muscleGroups' => MuscleGroup::all(),
-]);
+    return Inertia::render('Welcome', [
+        'daysOfWeek' => WorkoutPlanSets::getDayOptions(),
+        'muscleGroups' => MuscleGroup::all(),
+    ]);
 });
 
 Route::get('/workout-plan', function () {
-return Inertia::render('WorkoutPlan');
+    return Inertia::render('WorkoutPlan');
 });
 
-Route::post('/generate', function (GenerateWorkoutRequest $request) {
-$data = $request->validated();
-$days = WorkoutPlanSets::getDayOptions();
-$duration = $data["duration"];
-$selectedMuscles = MuscleGroup::whereIn('id', $data['selectedMuscles'])->get();
-$focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
-$selectedDays = $data["selectedDays"];
+Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workoutPlan) {
+    $workoutPlan = json_encode($workoutPlan);
+    $data = $request->validated();
+    $days = implode(', ', WorkoutPlanSets::getDayOptions());
+    $duration = $data["duration"];
+    $selectedMuscles = MuscleGroup::whereIn('id', $data['selectedMuscles'])->get();
+    $focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
+    $selectedDays =  implode(', ', $data["selectedDays"]);
 
-// if (count($focusMuscles) > 0) {
-// $selectedMuscles = $selectedMuscles->merge($focusMuscles);
-// }
-$availableExercises = collect(Exercise::all())->map(function ($exercise) {
-return [
-"id" => $exercise->id,
-"name" => $exercise->name,
-"trained_muscle_groups" => $exercise->trained_muscle_groups,
-];
-});
-logger("");
+    // if (count($focusMuscles) > 0) {
+    //     $selectedMuscles = $selectedMuscles->merge($focusMuscles);
+    // }
+    $availableExercises = collect(Exercise::all())->map(function ($exercise) {
+        return [
+            "id" => $exercise->id,
+            "name" => $exercise->name,
+            "trained_muscle_groups" => $exercise->trained_muscle_groups,
+        ];
+    });
 
-$open_ai = OpenAI::client(env("OPENAI_API_KEY"));
+    $open_ai = OpenAI::client(env("OPENAI_API_KEY"));
 
-$response = $open_ai->chat()->create([
-"model" => "gpt-3.5-turbo-1106",
-"response_format" => [
-"type" => "json_object",
-],
-"messages" => [
-[
-"role" => "system",
-"content" => "You are a helpful assistant designed to create an workoutplan with only the following exercises: {$availableExercises}.
+    $response = $open_ai->chat()->create([
+        "model" => "gpt-3.5-turbo-1106",
+        "response_format" => [
+            "type" => "json_object",
+        ],
+        "messages" => [
+            [
+                "role" => "system",
+                "content" => "You are a helpful assistant designed to create an workoutplan with only the following exercises: {$availableExercises}. 
+                
+                The output should be a JSON object with the days as keys: {$days}.
+                All the days should be included in the object. (IMPORTANT)
 
-The output should be a JSON object with the days as keys: {$days}.
+                If it is a rest day it should only be a string with the value 'Rest day'.
 
-If it is a rest day it should only be a string with the value 'Rest day'.
+                If it is a workout day it should be an object with the following keys: 'mainFocus', 'exercises'.
 
-If it is a workout day it should be an object with the following keys: 'mainFocus', 'exercises'.
+                'mainFocus' - The main muscle groups that the user should focus on that day.
 
-'mainFocus' - The main muscle groups that the user should focus on that day.
+                'exercises' - A list of exercises that the user should do that day. Each exercise should have a 'exercise_id', 'sets', and 'reps' key.
 
-'exercises' - A list of exercises that the user should do that day. Each exercise should have a 'exercise_id', 'sets', and 'reps' key.
+                'exercise_id' - The id of the exercise that the user should do.
 
-'exercise_id' - The id of the exercise that the user should do.
+                'sets' - The amount of sets that the user should do for the exercise (must be a number).
 
-'sets' - The amount of sets that the user should do for the exercise.
+                'reps' - The amount of reps that the user should do for the exercise (must be a number).
 
-'reps' - The amount of reps that the user should do for the exercise.
-"
-],
-// [
-// "role" => "user",
-// "content" => "I'm a $gender and $age years old. I'm $height cm tall and weigh $weight $unit. I'm $activity and I want to reach $goal_weight $unit in $goal_months months."
-// ]
-],
-"max_tokens" => 4000,
-]);
+                According to the duration of the workout, the amount of sets and reps should be adjusted accordingly.
 
-return redirect()->back();
+                min sets = 3
+                max sets = 6
+
+                min reps = 7
+                max reps = 20
+
+                Here is an example workoutplan: {$workoutPlan}
+                "
+            ],
+            [
+                "role" => "user",
+                "content" => "I want to generate a workout plan for the following muscle groups: {$selectedMuscles->pluck('name')->implode(', ')}. 
+                
+                I can only workout on the following days: {$selectedDays}. The rest should be rest days.
+                
+                I want to focus on the following muscle groups: {$focusMuscles->pluck('name')->implode(', ')}. 
+                
+                The duration of the workout should be {$duration} minutes."
+            ]
+        ],
+        "max_tokens" => 4000,
+    ]);
+    $data = json_decode($response->choices[0]->message->content);
+    logger(json_encode($data));
+
+    return redirect()->back();
 });
 
 Route::post('/generate-workout-plan', function (Request $request) {
-logger($request->all());
-// $age = $data["age"];
-// $gender = $data["gender"];
-// $height = $data["height"];
-// $weight = $data["weight"];
-// $activity = $data["activity"];
-// $goal_weight = $data["goal_weight"];
-// $goal_months = $data["goal_months"];
-// $unit = $data["unit"];
+    logger($request->all());
+    // $age = $data["age"];
+    // $gender = $data["gender"];
+    // $height = $data["height"];
+    // $weight = $data["weight"];
+    // $activity = $data["activity"];
+    // $goal_weight = $data["goal_weight"];
+    // $goal_months = $data["goal_months"];
+    // $unit = $data["unit"];
 
-// $guest = Guest::create([
-// "age" => $age,
-// "gender" => $gender,
-// "height" => $height,
-// "weight" => $weight,
-// "activity" => $activity,
-// "goal_weight" => $goal_weight,
-// "goal_months" => $goal_months,
-// "unit" => $unit,
-// ]);
+    // $guest = Guest::create([
+    //     "age" => $age,
+    //     "gender" => $gender,
+    //     "height" => $height,
+    //     "weight" => $weight,
+    //     "activity" => $activity,
+    //     "goal_weight" => $goal_weight,
+    //     "goal_months" => $goal_months,
+    //     "unit" => $unit,
+    // ]);
 
-// $activities = [
-// "sedentary" => "Little or no exercise.",
-// "lightly" => "Light exercise 1-3 days a week.",
-// "moderately" => "Moderate 3-5 days a week.",
-// "very" => "Hard exercise 6-7 days a week.",
-// "extra" => "Very hard exercise or physical job.",
-// ];
+    // $activities = [
+    //     "sedentary" => "Little or no exercise.",
+    //     "lightly" => "Light exercise 1-3 days a week.",
+    //     "moderately" => "Moderate 3-5 days a week.",
+    //     "very" => "Hard exercise 6-7 days a week.",
+    //     "extra" => "Very hard exercise or physical job.",
+    // ];
 
-// $activity = $activities[$activity];
+    // $activity = $activities[$activity];
 
-// $data = json_decode($response->choices[0]->message->content);
-// return redirect(route("generated"))->with("data", $data)->with("guest_id", $guest->id);
-return redirect()->back();
+    // $data = json_decode($response->choices[0]->message->content);
+    // return redirect(route("generated"))->with("data", $data)->with("guest_id", $guest->id);
+    return redirect()->back();
 });
