@@ -40,9 +40,6 @@ export default function WorkoutGenerator() {
     const [focusMuscles, setFocusMuscles] = useState<MuscleGroup[]>([])
     const [selectedDays, setSelectedDays] = useState<string[]>([])
     const [duration, setDuration] = useState<number>(60)
-    const [weeklyWorkout, setWeeklyWorkout] = useState<
-        Record<string, string[]>
-    >({})
     const focusMuslcesFiltered = focusMuscles.filter((m) =>
         selectedMuscles.includes(m)
     )
@@ -62,7 +59,6 @@ export default function WorkoutGenerator() {
                 : [...prev, muscle]
         )
     }
-    console.log(focusMuscles)
 
     const handleToggleDay = (day: string) => {
         setSelectedDays((prev) =>
