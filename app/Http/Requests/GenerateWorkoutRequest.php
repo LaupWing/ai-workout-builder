@@ -22,7 +22,13 @@ class GenerateWorkoutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "selectedMuscles" => ["required", "array"],
+            "selectedMuscles.*" => ["required", "integer", "exists:muscle_groups,id"],
+            "focusMuscles" => ["array"],
+            "focusMuscles.*" => ["required", "integer", "exists:muscle_groups,id"],
+            "selectedDays" => ["required", "array"],
+            "selectedDays.*" => ["required", "string"],
+            "duration" => ["required", "integer"],
         ];
     }
 }
