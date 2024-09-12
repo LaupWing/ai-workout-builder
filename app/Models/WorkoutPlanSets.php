@@ -15,7 +15,7 @@ class WorkoutPlanSets extends Model
         'exercise_id',
         'sets',
         'reps',
-        'rest',
+        'day',
     ];
 
     public function workoutPlan(): BelongsTo
