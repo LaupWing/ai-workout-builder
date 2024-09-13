@@ -239,28 +239,27 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
             "max_tokens" => 4000,
         ]);
 
-        $data = json_decode($response->choices[0]->message->content, true);
-        logger(isset($data['monday']['exercises']));
-        logger(isset($data['Monday']['exercises']));
+        $response_data = json_decode($response->choices[0]->message->content, true);
 
-        if (isset($data['monday']['exercises'])) {
+
+        if (isset($response_data[$data["selectedDays"][0]]['exercises'])) {
             break;
         }
-        if (isset($data['Monday']['exercises'])) {
+        if (isset($response_data[$data["selectedDays"][0]]['exercises'])) {
             break;
         }
     }
-    $data = array_change_key_case($data, CASE_LOWER);
+    $response_data = array_change_key_case($data, CASE_LOWER);
 
     $daysOfWeek = WorkoutPlanSets::getDayOptions();
 
     foreach ($daysOfWeek as $day) {
-        if (!array_key_exists($day, $data)) {
-            $data[$day] = 'Rest day';
+        if (!array_key_exists($day, $response_data)) {
+            $response_data[$day] = 'Rest day';
         }
 
-        if (is_array($data[$day]) && isset($data[$day]['exercises'])) {
-            foreach ($data[$day]['exercises'] as &$exercise) {
+        if (is_array($response_data[$day]) && isset($response_data[$day]['exercises'])) {
+            foreach ($response_data[$day]['exercises'] as &$exercise) {
                 $exercise['sets'] = (int) $exercise['sets'];
 
                 if (is_numeric($exercise['reps'])) {
@@ -276,12 +275,12 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
             }
         }
     }
-    logger($data);
+    logger($response_data);
     $workout = WorkoutPlan::create([
         'duration_minutes_per_session' => $duration,
     ]);
 
-    foreach ($data as $day => $workoutData) {
+    foreach ($response_data as $day => $workoutData) {
         if ($workoutData === 'Rest day') {
             continue;
         }
