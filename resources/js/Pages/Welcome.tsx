@@ -29,6 +29,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/Components/ui/dialog'
+import { Input } from '@/Components/ui/input'
 
 export default function WorkoutGenerator({
     daysOfWeek,
@@ -283,7 +284,15 @@ export default function WorkoutGenerator({
                                             and remove your data from our
                                             servers.
                                         </DialogDescription>
-                                        <div></div>
+                                        <div className="flex flex-col gap-2">
+                                            <Input
+                                                type="email"
+                                                placeholder="Test@example.com"
+                                            />
+                                            <Button>
+                                                Confirm and Generate
+                                            </Button>
+                                        </div>
                                     </DialogHeader>
                                 </DialogContent>
                             </Dialog>
