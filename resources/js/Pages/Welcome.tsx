@@ -19,7 +19,7 @@ import { Label } from '@/Components/ui/label'
 import { Button } from '@/Components/ui/button'
 import { Slider } from '@/Components/ui/slider'
 import { MuscleGroup, PageProps } from '@/types'
-import { router } from '@inertiajs/react'
+import { router, usePage } from '@inertiajs/react'
 
 export default function WorkoutGenerator({
     daysOfWeek,
@@ -36,6 +36,12 @@ export default function WorkoutGenerator({
     const focusMusclesFiltered = focusMuscles.filter((m) =>
         selectedMuscles.includes(m)
     )
+    const page = usePage<{
+        flash: {
+            error: string
+        }
+    }>()
+    console.log(page)
 
     const handleToggleMuscle = (muscle: string) => {
         setSelectedMuscles((prev) =>

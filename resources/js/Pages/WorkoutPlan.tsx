@@ -18,7 +18,6 @@ export default function WorkoutPlan(
         workoutPlan: any
     }>
 ) {
-    console.log(props)
     const exampleWorkout: Record<string, WorkoutDay | string> = {
         Monday: {
             mainFocus: 'Chest & Triceps',
