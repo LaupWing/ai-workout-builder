@@ -43,6 +43,7 @@ export default function WorkoutGenerator({
     const [selectedDays, setSelectedDays] = useState<string[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [duration, setDuration] = useState<number>(60)
+    const [showModal, setShowModal] = useState<boolean>(false)
     const focusMusclesFiltered = focusMuscles.filter((m) =>
         selectedMuscles.includes(m)
     )
@@ -261,7 +262,10 @@ export default function WorkoutGenerator({
                                     </p>
                                 </div>
                             )}
-                            <Dialog>
+                            <Dialog
+                                open={showModal}
+                                onOpenChange={setShowModal}
+                            >
                                 <DialogTrigger asChild>
                                     <Button
                                         className="w-full"
