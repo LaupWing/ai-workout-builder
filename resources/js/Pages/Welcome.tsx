@@ -91,27 +91,27 @@ export default function WorkoutGenerator({
     const handleGenerateWorkout = () => {
         setShowModal(false)
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
-            // router.post(
-            //     '/generate',
-            //     {
-            //         selectedMuscles,
-            //         focusMuscles: focusMusclesFiltered,
-            //         selectedDays,
-            //         duration,
-            //        email,
-            //     },
-            //     {
-            //         onStart: () => {
-            //             setLoading(true)
-            //         },
-            //         onProgress: () => {
-            //             setLoading(true)
-            //         },
-            //         onSuccess: () => {
-            //             setLoading(false)
-            //         },
-            //     }
-            // )
+            router.post(
+                '/generate',
+                {
+                    selectedMuscles,
+                    focusMuscles: focusMusclesFiltered,
+                    selectedDays,
+                    duration,
+                    email,
+                },
+                {
+                    onStart: () => {
+                        setLoading(true)
+                    },
+                    onProgress: () => {
+                        setLoading(true)
+                    },
+                    onSuccess: () => {
+                        setLoading(false)
+                    },
+                }
+            )
         }
     }
 
