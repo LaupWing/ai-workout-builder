@@ -90,26 +90,27 @@ export default function WorkoutGenerator({
 
     const handleGenerateWorkout = () => {
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
-            router.post(
-                '/generate',
-                {
-                    selectedMuscles,
-                    focusMuscles: focusMusclesFiltered,
-                    selectedDays,
-                    duration,
-                },
-                {
-                    onStart: () => {
-                        setLoading(true)
-                    },
-                    onProgress: () => {
-                        setLoading(true)
-                    },
-                    onSuccess: () => {
-                        setLoading(false)
-                    },
-                }
-            )
+            console.log(email)
+            // router.post(
+            //     '/generate',
+            //     {
+            //         selectedMuscles,
+            //         focusMuscles: focusMusclesFiltered,
+            //         selectedDays,
+            //         duration,
+            //     },
+            //     {
+            //         onStart: () => {
+            //             setLoading(true)
+            //         },
+            //         onProgress: () => {
+            //             setLoading(true)
+            //         },
+            //         onSuccess: () => {
+            //             setLoading(false)
+            //         },
+            //     }
+            // )
         }
     }
 
@@ -288,7 +289,13 @@ export default function WorkoutGenerator({
                                             you the workout plan to your inbox.
                                             That way you can access it anytime.
                                         </DialogDescription>
-                                        <div className="flex flex-col gap-2">
+                                        <form
+                                            onSubmit={(e) => {
+                                                e.preventDefault()
+                                                handleGenerateWorkout()
+                                            }}
+                                            className="flex flex-col gap-2"
+                                        >
                                             <Input
                                                 type="email"
                                                 placeholder="Test@example.com"
@@ -297,10 +304,10 @@ export default function WorkoutGenerator({
                                                     setEmail(e.target.value)
                                                 }
                                             />
-                                            <Button>
+                                            <Button type="submit">
                                                 Confirm and Generate
                                             </Button>
-                                        </div>
+                                        </form>
                                     </DialogHeader>
                                 </DialogContent>
                             </Dialog>
