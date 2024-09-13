@@ -242,20 +242,18 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
         $response_data = json_decode($response->choices[0]->message->content, true);
 
         if (isset($response_data[$data["selectedDays"][0]])) {
-            logger($response_data[$data["selectedDays"][0]]);
             if (isset($response_data[$data["selectedDays"][0]]['exercises'])) {
                 break;
             }
         }
         if (isset($response_data[ucwords($data["selectedDays"][0])])) {
-            logger($response_data[ucwords($data["selectedDays"][0])]);
             if (isset($response_data[ucwords($data["selectedDays"][0])]['exercises'])) {
                 break;
             }
         }
     }
-    $response_data = array_change_key_case($data, CASE_LOWER);
-    logger($response_data);
+    $response_data = array_change_key_case($response_data, CASE_LOWER);
+
     $daysOfWeek = WorkoutPlanSets::getDayOptions();
 
     foreach ($daysOfWeek as $day) {
