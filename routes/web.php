@@ -257,7 +257,7 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
         }
     }
     $response_data = array_change_key_case($response_data, CASE_LOWER);
-    logger($response_data);
+
     $daysOfWeek = WorkoutPlanSets::getDayOptions();
 
     foreach ($daysOfWeek as $day) {
