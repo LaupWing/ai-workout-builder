@@ -154,8 +154,17 @@ Route::get('/workout-plan', function (Request $request) {
     if (!$workoutPlan) {
         return redirect('/')->with('error', 'No workout plan found');
     }
+    $workoutPlanGroupedByDay = $workoutPlan->groupByDayWithFocusMuscles();
+    $daysOfWeek = WorkoutPlanSets::getDayOptions();
+
+    foreach ($daysOfWeek as $day) {
+        if (!array_key_exists($day, $workoutPlanGroupedByDay)) {
+            $data[$day] = 'Rest day';
+        }
+    }
+
     return Inertia::render('WorkoutPlan', [
-        'workoutPlan' => $workoutPlan->groupByDayWithFocusMuscles(),
+        'workoutPlan' => $daysOfWeek,
     ]);
 });
 
@@ -233,7 +242,7 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     $data = json_decode($response->choices[0]->message->content, true);
     $data = array_change_key_case($data, CASE_LOWER);
 
-    $daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    $daysOfWeek = WorkoutPlanSets::getDayOptions();
 
     foreach ($daysOfWeek as $day) {
         if (!array_key_exists($day, $data)) {
