@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Dumbbell,
     Clock,
@@ -20,6 +20,7 @@ import { Button } from '@/Components/ui/button'
 import { Slider } from '@/Components/ui/slider'
 import { MuscleGroup, PageProps } from '@/types'
 import { router, usePage } from '@inertiajs/react'
+import { toast } from '@/hooks/use-toast'
 
 export default function WorkoutGenerator({
     daysOfWeek,
@@ -42,6 +43,14 @@ export default function WorkoutGenerator({
         }
     }>()
     console.log(page)
+
+    if (page.props.flash.error) {
+        toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: page.props.flash.error,
+        })
+    }
 
     const handleToggleMuscle = (muscle: string) => {
         setSelectedMuscles((prev) =>
