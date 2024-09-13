@@ -42,7 +42,6 @@ export default function WorkoutGenerator({
             error: string
         }
     }>()
-    console.log(page)
 
     if (page.props.flash.error) {
         toast({
