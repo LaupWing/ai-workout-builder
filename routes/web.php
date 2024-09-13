@@ -242,15 +242,11 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
         $response_data = json_decode($response->choices[0]->message->content, true);
 
         if (isset($response_data[$data["selectedDays"][0]])) {
-            logger('response_data selected day');
-            logger($response_data[$data["selectedDays"][0]]);
             if (isset($response_data[$data["selectedDays"][0]]['exercises'])) {
                 break;
             }
         }
         if (isset($response_data[ucwords($data["selectedDays"][0])])) {
-            logger('response_data selected day');
-            logger($response_data[ucwords($data["selectedDays"][0])]);
             if (isset($response_data[ucwords($data["selectedDays"][0])]['exercises'])) {
                 break;
             }
