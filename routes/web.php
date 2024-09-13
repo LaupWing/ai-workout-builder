@@ -240,8 +240,13 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
         ]);
 
         $data = json_decode($response->choices[0]->message->content, true);
-        logger($data);
-        if (isset($data[0]['exercises'])) {
+        logger(isset($data['monday']['exercises']));
+        logger(isset($data['Monday']['exercises']));
+
+        if (isset($data['monday']['exercises'])) {
+            break;
+        }
+        if (isset($data['Monday']['exercises'])) {
             break;
         }
     }
