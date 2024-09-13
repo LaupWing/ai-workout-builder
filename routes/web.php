@@ -173,6 +173,7 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     $data = $request->validated();
     $days = implode(', ', WorkoutPlanSets::getDayOptions());
     $duration = $data["duration"];
+    $email = $data["email"];
     $selectedMuscles = MuscleGroup::whereIn('id', $data['selectedMuscles'])->get();
     $focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
     $selectedDays =  implode(', ', $data["selectedDays"]);
@@ -280,6 +281,7 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     }
     $workout = WorkoutPlan::create([
         'duration_minutes_per_session' => $duration,
+        'email' => $email,
     ]);
 
     foreach ($response_data as $day => $workoutData) {
