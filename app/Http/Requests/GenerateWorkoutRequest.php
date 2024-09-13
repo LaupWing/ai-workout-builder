@@ -29,6 +29,7 @@ class GenerateWorkoutRequest extends FormRequest
             "selectedDays" => ["required", "array"],
             "selectedDays.*" => ["required", "string"],
             "duration" => ["required", "integer"],
+            "email" => ["required", "email"],
         ];
     }
 }

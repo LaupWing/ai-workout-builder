@@ -89,8 +89,8 @@ export default function WorkoutGenerator({
     }
 
     const handleGenerateWorkout = () => {
+        setShowModal(false)
         if (selectedMuscles.length > 0 && selectedDays.length > 0) {
-            console.log(email)
             // router.post(
             //     '/generate',
             //     {
@@ -98,6 +98,7 @@ export default function WorkoutGenerator({
             //         focusMuscles: focusMusclesFiltered,
             //         selectedDays,
             //         duration,
+            //        email,
             //     },
             //     {
             //         onStart: () => {
