@@ -280,13 +280,12 @@ export default function WorkoutGenerator({
                                 <DialogContent>
                                     <DialogHeader>
                                         <DialogTitle>
-                                            Are you absolutely sure?
+                                            What is your email address?
                                         </DialogTitle>
                                         <DialogDescription>
-                                            This action cannot be undone. This
-                                            will permanently delete your account
-                                            and remove your data from our
-                                            servers.
+                                            I need your email address to send
+                                            you the workout plan to your inbox.
+                                            That way you can access it anytime.
                                         </DialogDescription>
                                         <div className="flex flex-col gap-2">
                                             <Input
