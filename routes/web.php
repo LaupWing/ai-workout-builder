@@ -151,7 +151,9 @@ Route::get('/', function () {
 
 Route::get('/workout-plan', function (Request $request) {
     $workoutPlan = WorkoutPlan::find($request->session()->get('workout_id'));
-    logger($workoutPlan);
+    if (!$workoutPlan) {
+        return redirect('/')->with('error', 'No workout plan found');
+    }
     return Inertia::render('WorkoutPlan', [
         'workoutPlan' => $workoutPlan->groupByDayWithFocusMuscles(),
     ]);
