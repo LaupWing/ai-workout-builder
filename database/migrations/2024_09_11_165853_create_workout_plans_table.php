@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('workout_plans', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->nullable();
+            $table->string('email');
             $table->integer('duration_minutes_per_session');
             $table->timestamps();
         });
