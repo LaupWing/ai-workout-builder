@@ -154,7 +154,7 @@ Route::get('/workout-plan', function (Request $request) {
     if (!$workoutPlan) {
         return redirect('/')->with('error', 'No workout plan found');
     }
-    $workoutPlanGroupedByDay = $workoutPlan->groupByDayWithFocusMuscles();
+    $workoutPlanGroupedByDay = $workoutPlan->groupByDayWithFocusMuscles()->toArray();
     $daysOfWeek = WorkoutPlanSets::getDayOptions();
 
     foreach ($daysOfWeek as $day) {
@@ -186,60 +186,65 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     });
 
     $open_ai = OpenAI::client(env("OPENAI_API_KEY"));
-
-    $response = $open_ai->chat()->create([
-        "model" => "gpt-3.5-turbo-1106",
-        "response_format" => [
-            "type" => "json_object",
-        ],
-        "messages" => [
-            [
-                "role" => "system",
-                "content" => "You are a helpful assistant designed to create an workoutplan with only the following exercises: {$availableExercises}. 
-                
-                The output should be a JSON object with the days as keys: {$days}.
-                All the days should be included in the object. (IMPORTANT)
-
-                If it is a rest day it should only be a string with the value 'Rest day'.
-
-                If it is a workout day it should be an object with the following keys: 'mainFocus', 'exercises'.
-
-                'mainFocus' - The main muscle groups that the user should focus on that day.
-
-                'exercises' - A list of exercises that the user should do that day. Each exercise should have a 'exercise_id', 'sets', and 'reps' key.
-
-                'exercise_id' - The id of the exercise that the user should do.
-
-                'sets' - The amount of sets that the user should do for the exercise (must be a number).
-
-                'reps' - The amount of reps that the user should do for the exercise (must be a number).
-
-                According to the duration of the workout, the amount of sets and reps should be adjusted accordingly.
-
-                min sets = 3
-                max sets = 6
-
-                min reps = 7
-                max reps = 20
-
-                Here is an example workoutplan: {$workoutPlan}
-                "
+    while (true) {
+        $response = $open_ai->chat()->create([
+            "model" => "gpt-3.5-turbo-1106",
+            "response_format" => [
+                "type" => "json_object",
             ],
-            [
-                "role" => "user",
-                "content" => "I want to generate a workout plan for the following muscle groups: {$selectedMuscles->pluck('name')->implode(', ')}. 
-                
-                I can only workout on the following days: {$selectedDays}. The rest should be rest days.
-                
-                I want to focus on the following muscle groups: {$focusMuscles->pluck('name')->implode(', ')}. 
-                
-                The duration of the workout should be {$duration} minutes."
-            ]
-        ],
-        "max_tokens" => 4000,
-    ]);
+            "messages" => [
+                [
+                    "role" => "system",
+                    "content" => "You are a helpful assistant designed to create an workoutplan with only the following exercises: {$availableExercises}. 
+                    
+                    The output should be a JSON object with the days as keys: {$days}.
+                    All the days should be included in the object. (IMPORTANT)
+    
+                    If it is a rest day it should only be a string with the value 'Rest day'.
+    
+                    If it is a workout day it should be an object with the following keys: 'mainFocus', 'exercises'.
+    
+                    'mainFocus' - The main muscle groups that the user should focus on that day.
+    
+                    'exercises' - A list of exercises that the user should do that day. Each exercise should have a 'exercise_id', 'sets', and 'reps' key.
+    
+                    'exercise_id' - The id of the exercise that the user should do.
+    
+                    'sets' - The amount of sets that the user should do for the exercise (must be a number).
+    
+                    'reps' - The amount of reps that the user should do for the exercise (must be a number).
+    
+                    According to the duration of the workout, the amount of sets and reps should be adjusted accordingly.
+    
+                    min sets = 3
+                    max sets = 6
+    
+                    min reps = 7
+                    max reps = 20
+    
+                    Here is an example workoutplan: {$workoutPlan}
+                    "
+                ],
+                [
+                    "role" => "user",
+                    "content" => "I want to generate a workout plan for the following muscle groups: {$selectedMuscles->pluck('name')->implode(', ')}. 
+                    
+                    I can only workout on the following days: {$selectedDays}. The rest should be rest days.
+                    
+                    I want to focus on the following muscle groups: {$focusMuscles->pluck('name')->implode(', ')}. 
+                    
+                    The duration of the workout should be {$duration} minutes."
+                ]
+            ],
+            "max_tokens" => 4000,
+        ]);
 
-    $data = json_decode($response->choices[0]->message->content, true);
+        $data = json_decode($response->choices[0]->message->content, true);
+        logger($data);
+        if (isset($data[0]['exercises'])) {
+            break;
+        }
+    }
     $data = array_change_key_case($data, CASE_LOWER);
 
     $daysOfWeek = WorkoutPlanSets::getDayOptions();
@@ -266,6 +271,7 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
             }
         }
     }
+    logger($data);
     $workout = WorkoutPlan::create([
         'duration_minutes_per_session' => $duration,
     ]);
