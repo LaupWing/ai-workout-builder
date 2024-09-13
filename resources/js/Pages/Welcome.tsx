@@ -21,6 +21,14 @@ import { Slider } from '@/Components/ui/slider'
 import { MuscleGroup, PageProps } from '@/types'
 import { router, usePage } from '@inertiajs/react'
 import { toast } from '@/hooks/use-toast'
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/Components/ui/dialog'
 
 export default function WorkoutGenerator({
     daysOfWeek,
@@ -252,16 +260,33 @@ export default function WorkoutGenerator({
                                     </p>
                                 </div>
                             )}
-                            <Button
-                                onClick={handleGenerateWorkout}
-                                className="w-full"
-                                disabled={
-                                    selectedMuscles.length === 0 ||
-                                    selectedDays.length === 0
-                                }
-                            >
-                                Generate Weekly Workout
-                            </Button>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button
+                                        className="w-full"
+                                        disabled={
+                                            selectedMuscles.length === 0 ||
+                                            selectedDays.length === 0
+                                        }
+                                    >
+                                        Generate Weekly Workout
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>
+                                            Are you absolutely sure?
+                                        </DialogTitle>
+                                        <DialogDescription>
+                                            This action cannot be undone. This
+                                            will permanently delete your account
+                                            and remove your data from our
+                                            servers.
+                                        </DialogDescription>
+                                        <div></div>
+                                    </DialogHeader>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                     </CardContent>
                 </Card>
