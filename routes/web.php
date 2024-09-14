@@ -247,13 +247,18 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
         }
     }
     $response_data = array_change_key_case($response_data, CASE_LOWER);
-    logger($response_data);
+
     $daysOfWeek = WorkoutPlanSets::getDayOptions();
 
     foreach ($daysOfWeek as $day) {
         if (!array_key_exists($day, $response_data)) {
             $response_data[$day] = 'Rest day';
         }
+
+        if (is_string($response_data[$day])) {
+            continue;
+        }
+
 
         if (is_array($response_data[$day]) && isset($response_data[$day]['exercises'])) {
             foreach ($response_data[$day]['exercises'] as &$exercise) {
