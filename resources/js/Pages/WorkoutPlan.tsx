@@ -378,6 +378,47 @@ export default function WorkoutPlan(
                                         </span>
                                     )}
                                 </div>
+                                {/* @ts-ignore */}
+                                {typeof _weeks[day] !== 'string' ? (
+                                    <ul className="list-disc pl-5 space-y-2">
+                                        {/* @ts-ignore */}
+                                        {_weeks[day].exercises.map(
+                                            (
+                                                exercise: Exercise,
+                                                index: number
+                                            ) => (
+                                                <li key={index}>
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="font-medium">
+                                                            {exercise.name}
+                                                        </span>
+                                                        {/* <Link
+                            href={
+                                exercise.videoLink
+                            }
+                            target="_blank"
+                            className="text-primary hover:text-primary/80 transition-colors"
+                        > */}
+                                                        <ExternalLink className="w-4 h-4" />
+                                                        <span className="sr-only">
+                                                            Watch video
+                                                        </span>
+                                                        {/* </Link> */}
+                                                    </div>
+                                                    <span className="text-sm text-gray-600">
+                                                        Targets:{' '}
+                                                        {exercise.muscleGroup}
+                                                    </span>
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                ) : (
+                                    <p className="text-gray-500 italic">
+                                        {/* @ts-ignore */}
+                                        {_weeks[day]}
+                                    </p>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -386,41 +427,3 @@ export default function WorkoutPlan(
         </div>
     )
 }
-
-// {typeof workout !== 'string' ? (
-//     <ul className="list-disc pl-5 space-y-2">
-//         {workout.exercises.map(
-//             (exercise, index) => (
-//                 <li key={index}>
-//                     <div className="flex items-center justify-between">
-//                         <span className="font-medium">
-//                             {exercise.name}
-//                         </span>
-//                         {/* <Link
-//                             href={
-//                                 exercise.videoLink
-//                             }
-//                             target="_blank"
-//                             className="text-primary hover:text-primary/80 transition-colors"
-//                         > */}
-//                         <ExternalLink className="w-4 h-4" />
-//                         <span className="sr-only">
-//                             Watch video
-//                         </span>
-//                         {/* </Link> */}
-//                     </div>
-//                     <span className="text-sm text-gray-600">
-//                         Targets:{' '}
-//                         {
-//                             exercise.muscleGroup
-//                         }
-//                     </span>
-//                 </li>
-//             )
-//         )}
-//     </ul>
-// ) : (
-//     <p className="text-gray-500 italic">
-//         {workout}
-//     </p>
-// )}
