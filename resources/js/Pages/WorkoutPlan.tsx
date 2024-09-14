@@ -211,7 +211,10 @@ export default function WorkoutPlan(
                                 minutes per session
                             </span>
                         </div>
-                        <Button className="flex gap-1 uppercase text-sm items-center">
+                        <Button
+                            disabled
+                            className="flex gap-1 uppercase text-sm items-center"
+                        >
                             Send to my email <Mail size={20} />
                         </Button>
                         {props.days.map((day) => (
