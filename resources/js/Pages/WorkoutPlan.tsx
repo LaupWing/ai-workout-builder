@@ -187,13 +187,6 @@ export default function WorkoutPlan(
             // @ts-ignore
             _weeks[day] = 'Rest day'
         }
-        // if (props.workoutPlan[day]) {
-        //     // @ts-ignore
-        //     _weeks[day] = props.workoutPlan[day]
-        // } else {
-        //     // @ts-ignore
-        //     _weeks[day] = weeks[day]
-        // }
     })
     console.log(_weeks)
 
