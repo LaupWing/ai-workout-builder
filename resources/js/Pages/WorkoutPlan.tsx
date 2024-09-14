@@ -179,11 +179,11 @@ export default function WorkoutPlan(
     }>
 ) {
     const _weeks: WorkoutPlanProps = {}
-
+    console.log(props.workoutPlan)
     props.days.forEach((day) => {
-        if (Object.keys(weeks).includes(day)) {
+        if (Object.keys(props.workoutPlan).includes(day)) {
             // @ts-ignore
-            _weeks[day] = weeks[day]
+            _weeks[day] = props.workoutPlan[day]
         } else {
             // @ts-ignore
             _weeks[day] = 'Rest day'
