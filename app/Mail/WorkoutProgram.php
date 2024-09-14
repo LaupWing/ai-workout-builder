@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\WorkoutPlan;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,8 +17,9 @@ class WorkoutProgram extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
+    public function __construct(
+        public WorkoutPlan $workoutPlan,
+    ) {
         //
     }
 
