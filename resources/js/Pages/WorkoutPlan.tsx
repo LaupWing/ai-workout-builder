@@ -246,25 +246,31 @@ export default function WorkoutPlan(
                                                 <li key={index}>
                                                     <div className="flex items-center justify-between">
                                                         <span className="font-medium">
-                                                            {exercise.name}
+                                                            {
+                                                                exercise
+                                                                    .exercise
+                                                                    .name
+                                                            }
                                                         </span>
-                                                        {/* <Link
-                            href={
-                                exercise.videoLink
-                            }
-                            target="_blank"
-                            className="text-primary hover:text-primary/80 transition-colors"
-                        > */}
-                                                        <ExternalLink className="w-4 h-4" />
-                                                        <span className="sr-only">
-                                                            Watch video
-                                                        </span>
-                                                        {/* </Link> */}
+                                                        <a
+                                                            href={
+                                                                exercise
+                                                                    .exercise
+                                                                    .twitter_url
+                                                            }
+                                                            target="_blank"
+                                                        >
+                                                            <ExternalLink className="w-4 h-4" />
+                                                            <span className="sr-only">
+                                                                Watch video
+                                                            </span>
+                                                        </a>
                                                     </div>
                                                     <span className="text-sm text-gray-600">
                                                         Targets:{' '}
                                                         {
-                                                            exercise.trained_muscles
+                                                            exercise.exercise
+                                                                .trained_muscles
                                                         }
                                                     </span>
                                                 </li>
