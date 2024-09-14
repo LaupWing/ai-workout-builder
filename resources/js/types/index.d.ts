@@ -51,3 +51,10 @@ export interface DayWorkout {
 export interface WorkoutPlanGroupedByDay {
     [day: string]: DayWorkout
 }
+export interface WorkoutPlanType {
+    id: number
+    email: string
+    duration_minutes_per_session: number
+    created_at: string
+    updated_at: string
+}

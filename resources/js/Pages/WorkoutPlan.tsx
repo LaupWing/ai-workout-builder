@@ -1,6 +1,6 @@
 import { Button } from '@/Components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
-import { Exercise, PageProps, WorkoutPlanSet } from '@/types'
+import { Exercise, PageProps, WorkoutPlanSet, WorkoutPlanType } from '@/types'
 import { Dumbbell, Clock, ExternalLink, Link, Mail } from 'lucide-react'
 
 // type Exercise = {
@@ -176,10 +176,11 @@ export default function WorkoutPlan(
     props: PageProps<{
         groupedByDayWithFocusMuscles: any
         days: string[]
+        workoutPlan: WorkoutPlanType
     }>
 ) {
     const _weeks: WorkoutPlanProps = {}
-
+    console.log(props.workoutPlan)
     props.days.forEach((day) => {
         if (Object.keys(props.groupedByDayWithFocusMuscles).includes(day)) {
             // @ts-ignore
@@ -204,7 +205,9 @@ export default function WorkoutPlan(
                         <div className="flex items-center gap-2 text-sm text-gray-600">
                             <Clock className="w-4 h-4" />
                             <span>
-                                Workout Duration: 60 minutes per session
+                                Workout Duration:{' '}
+                                {props.workoutPlan.duration_minutes_per_session}{' '}
+                                minutes per session
                             </span>
                         </div>
                         <Button className="flex gap-1 uppercase text-sm items-center">
