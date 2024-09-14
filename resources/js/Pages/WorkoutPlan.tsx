@@ -178,7 +178,7 @@ export default function WorkoutPlan(
     }>
 ) {
     const _weeks: WorkoutPlanProps = {}
-
+    console.log(props.workoutPlan)
     props.days.forEach((day) => {
         console.log(day)
         if (Object.keys(props.workoutPlan).includes(day)) {
@@ -227,6 +227,8 @@ export default function WorkoutPlan(
                                     {/* @ts-ignore */}
                                     {typeof _weeks[day] !== 'string' && (
                                         <span className="text-sm font-medium px-2 py-1 bg-primary/10 text-primary rounded-full capitalize">
+                                            {/* @ts-ignore */}
+                                            {console.log(_weeks[day])}
                                             {/* @ts-ignore */}
                                             {_weeks[
                                                 day
