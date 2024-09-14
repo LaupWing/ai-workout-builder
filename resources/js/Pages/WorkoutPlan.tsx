@@ -174,8 +174,21 @@ const weeks: WorkoutPlanProps = {
 export default function WorkoutPlan(
     props: PageProps<{
         workoutPlan: any
+        days: string[]
     }>
 ) {
+    const _weeks: WorkoutPlanProps = {}
+    console.log(props.days)
+    Object.keys(weeks).forEach((day) => {
+        console.log(day)
+        // if (props.workoutPlan[day]) {
+        //     // @ts-ignore
+        //     _weeks[day] = props.workoutPlan[day]
+        // } else {
+        //     // @ts-ignore
+        //     _weeks[day] = weeks[day]
+        // }
+    })
     console.log(weeks)
 
     const exampleWorkout: Record<string, WorkoutDay | string> = {

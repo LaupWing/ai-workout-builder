@@ -157,6 +157,7 @@ Route::get('/workout-plan', function (Request $request) {
 
     return Inertia::render('WorkoutPlan', [
         // 'workoutPlan' => $workoutPlan->groupByDayWithFocusMuscles(),
+        'days' => WorkoutPlanSets::getDayOptions()
     ]);
 });
 
