@@ -19,20 +19,20 @@ type WorkoutDayProps = {
 }
 
 interface WorkoutPlanProps {
-    monday: WorkoutDayProps | string
-    tuesday: WorkoutDayProps | string
-    wednesday: WorkoutDayProps | string
-    thursday: WorkoutDayProps | string
-    friday: WorkoutDayProps | string
-    saturday: WorkoutDayProps | string
-    sunday: WorkoutDayProps | string
+    monday?: WorkoutDayProps | string
+    tuesday?: WorkoutDayProps | string
+    wednesday?: WorkoutDayProps | string
+    thursday?: WorkoutDayProps | string
+    friday?: WorkoutDayProps | string
+    saturday?: WorkoutDayProps | string
+    sunday?: WorkoutDayProps | string
 }
 
-const weeks = {
+const weeks: WorkoutPlanProps = {
     monday: {
         exercises: [
             {
-                id: 18,
+                id: '18',
                 workout_plan_id: 3,
                 exercise_id: 1,
                 reps: 15,
@@ -41,7 +41,7 @@ const weeks = {
                 created_at: '2024-09-14T12:38:49.000000Z',
                 updated_at: '2024-09-14T12:38:49.000000Z',
                 exercise: {
-                    id: 1,
+                    id: '1',
                     muscle_group_id: 1,
                     trained_muscles: 'Chest, Shoulders, Triceps',
                     name: 'Bench Press',
@@ -50,7 +50,7 @@ const weeks = {
                     created_at: '2024-09-13T14:56:33.000000Z',
                     updated_at: '2024-09-13T14:56:33.000000Z',
                     muscle_group: {
-                        id: 1,
+                        id: '1',
                         name: 'chest',
                         created_at: '2024-09-13T14:56:33.000000Z',
                         updated_at: '2024-09-13T14:56:33.000000Z',
@@ -58,7 +58,7 @@ const weeks = {
                 },
             },
             {
-                id: 19,
+                id: '19',
                 workout_plan_id: 3,
                 exercise_id: 16,
                 reps: 12,
@@ -67,7 +67,7 @@ const weeks = {
                 created_at: '2024-09-14T12:38:49.000000Z',
                 updated_at: '2024-09-14T12:38:49.000000Z',
                 exercise: {
-                    id: 16,
+                    id: '16',
                     muscle_group_id: 4,
                     trained_muscles: 'Biceps',
                     name: 'Dumbbell Bicep Curl',
@@ -76,7 +76,7 @@ const weeks = {
                     created_at: '2024-09-13T14:56:34.000000Z',
                     updated_at: '2024-09-13T14:56:34.000000Z',
                     muscle_group: {
-                        id: 4,
+                        id: '4',
                         name: 'arms',
                         created_at: '2024-09-13T14:56:33.000000Z',
                         updated_at: '2024-09-13T14:56:33.000000Z',
@@ -84,7 +84,7 @@ const weeks = {
                 },
             },
             {
-                id: 20,
+                id: '20',
                 workout_plan_id: 3,
                 exercise_id: 20,
                 reps: 30,
@@ -93,7 +93,7 @@ const weeks = {
                 created_at: '2024-09-14T12:38:49.000000Z',
                 updated_at: '2024-09-14T12:38:49.000000Z',
                 exercise: {
-                    id: 20,
+                    id: '20',
                     muscle_group_id: 6,
                     trained_muscles: 'Abs, Hip Flexors',
                     name: 'Hanging Leg Raise',
@@ -102,7 +102,7 @@ const weeks = {
                     created_at: '2024-09-13T14:56:34.000000Z',
                     updated_at: '2024-09-13T14:56:34.000000Z',
                     muscle_group: {
-                        id: 6,
+                        id: '6',
                         name: 'core',
                         created_at: '2024-09-13T14:56:33.000000Z',
                         updated_at: '2024-09-13T14:56:33.000000Z',
@@ -115,7 +115,7 @@ const weeks = {
     saturday: {
         exercises: [
             {
-                id: 21,
+                id: '21',
                 workout_plan_id: 3,
                 exercise_id: 17,
                 reps: 12,
@@ -124,7 +124,7 @@ const weeks = {
                 created_at: '2024-09-14T12:38:49.000000Z',
                 updated_at: '2024-09-14T12:38:49.000000Z',
                 exercise: {
-                    id: 17,
+                    id: '17',
                     muscle_group_id: 4,
                     trained_muscles: 'Biceps, Brachialis',
                     name: 'Dumbbell Hammer Curl',
@@ -133,7 +133,7 @@ const weeks = {
                     created_at: '2024-09-13T14:56:34.000000Z',
                     updated_at: '2024-09-13T14:56:34.000000Z',
                     muscle_group: {
-                        id: 4,
+                        id: '4',
                         name: 'arms',
                         created_at: '2024-09-13T14:56:33.000000Z',
                         updated_at: '2024-09-13T14:56:33.000000Z',
@@ -141,7 +141,7 @@ const weeks = {
                 },
             },
             {
-                id: 22,
+                id: '22',
                 workout_plan_id: 3,
                 exercise_id: 17,
                 reps: 12,
@@ -150,7 +150,7 @@ const weeks = {
                 created_at: '2024-09-14T12:38:49.000000Z',
                 updated_at: '2024-09-14T12:38:49.000000Z',
                 exercise: {
-                    id: 17,
+                    id: '17',
                     muscle_group_id: 4,
                     trained_muscles: 'Biceps, Brachialis',
                     name: 'Dumbbell Hammer Curl',
@@ -159,7 +159,7 @@ const weeks = {
                     created_at: '2024-09-13T14:56:34.000000Z',
                     updated_at: '2024-09-13T14:56:34.000000Z',
                     muscle_group: {
-                        id: 4,
+                        id: '4',
                         name: 'arms',
                         created_at: '2024-09-13T14:56:33.000000Z',
                         updated_at: '2024-09-13T14:56:33.000000Z',
@@ -176,7 +176,7 @@ export default function WorkoutPlan(
         workoutPlan: any
     }>
 ) {
-    console.log(props.workoutPlan)
+    console.log(weeks)
 
     const exampleWorkout: Record<string, WorkoutDay | string> = {
         Monday: {
