@@ -19,6 +19,7 @@ class WorkoutProgram extends Mailable
      */
     public function __construct(
         public WorkoutPlan $workoutPlan,
+        public array $days
     ) {
         //
     }
