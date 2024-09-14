@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
-import { PageProps } from '@/types'
+import { PageProps, WorkoutPlanSet } from '@/types'
 import { Dumbbell, Clock, ExternalLink, Link } from 'lucide-react'
 
 type Exercise = {
@@ -13,14 +13,19 @@ type WorkoutDay = {
     exercises: Exercise[]
 }
 
+type WorkoutDayProps = {
+    exercises: WorkoutPlanSet[]
+    focus_muscle_groups: string[]
+}
+
 interface WorkoutPlanProps {
-    monday: WorkoutDay
-    tuesday: WorkoutDay
-    wednesday: string
-    thursday: WorkoutDay
-    friday: WorkoutDay
-    saturday: WorkoutDay
-    sunday: string
+    monday: WorkoutDayProps | string
+    tuesday: WorkoutDayProps | string
+    wednesday: WorkoutDayProps | string
+    thursday: WorkoutDayProps | string
+    friday: WorkoutDayProps | string
+    saturday: WorkoutDayProps | string
+    sunday: WorkoutDayProps | string
 }
 
 const weeks = {
