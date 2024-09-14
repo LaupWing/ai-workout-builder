@@ -359,65 +359,68 @@ export default function WorkoutPlan(
                                 Workout Duration: 60 minutes per session
                             </span>
                         </div>
-                        {Object.entries(exampleWorkout).map(
-                            ([day, workout]) => (
-                                <div
-                                    key={day}
-                                    className="border-t pt-4 first:border-t-0 first:pt-0"
-                                >
-                                    <div className="flex justify-between items-center mb-2">
-                                        <h3 className="text-lg font-semibold">
-                                            {day}
-                                        </h3>
-                                        {typeof workout !== 'string' && (
-                                            <span className="text-sm font-medium px-2 py-1 bg-primary/10 text-primary rounded-full">
-                                                {workout.mainFocus}
-                                            </span>
-                                        )}
-                                    </div>
-                                    {typeof workout !== 'string' ? (
-                                        <ul className="list-disc pl-5 space-y-2">
-                                            {workout.exercises.map(
-                                                (exercise, index) => (
-                                                    <li key={index}>
-                                                        <div className="flex items-center justify-between">
-                                                            <span className="font-medium">
-                                                                {exercise.name}
-                                                            </span>
-                                                            {/* <Link
-                                                                href={
-                                                                    exercise.videoLink
-                                                                }
-                                                                target="_blank"
-                                                                className="text-primary hover:text-primary/80 transition-colors"
-                                                            > */}
-                                                            <ExternalLink className="w-4 h-4" />
-                                                            <span className="sr-only">
-                                                                Watch video
-                                                            </span>
-                                                            {/* </Link> */}
-                                                        </div>
-                                                        <span className="text-sm text-gray-600">
-                                                            Targets:{' '}
-                                                            {
-                                                                exercise.muscleGroup
-                                                            }
-                                                        </span>
-                                                    </li>
-                                                )
-                                            )}
-                                        </ul>
-                                    ) : (
-                                        <p className="text-gray-500 italic">
-                                            {workout}
-                                        </p>
+                        {props.days.map((day) => (
+                            <div
+                                key={day}
+                                className="border-t pt-4 first:border-t-0 first:pt-0"
+                            >
+                                <div className="flex justify-between items-center mb-2">
+                                    <h3 className="text-lg capitalize font-semibold">
+                                        {day}
+                                    </h3>
+                                    {/* @ts-ignore */}
+                                    {typeof _weeks[day] !== 'string' && (
+                                        <span className="text-sm font-medium px-2 py-1 bg-primary/10 text-primary rounded-full capitalize">
+                                            {/* @ts-ignore */}
+                                            {_weeks[
+                                                day
+                                            ].focus_muscle_groups.join(', ')}
+                                        </span>
                                     )}
                                 </div>
-                            )
-                        )}
+                            </div>
+                        ))}
                     </div>
                 </CardContent>
             </Card>
         </div>
     )
 }
+
+// {typeof workout !== 'string' ? (
+//     <ul className="list-disc pl-5 space-y-2">
+//         {workout.exercises.map(
+//             (exercise, index) => (
+//                 <li key={index}>
+//                     <div className="flex items-center justify-between">
+//                         <span className="font-medium">
+//                             {exercise.name}
+//                         </span>
+//                         {/* <Link
+//                             href={
+//                                 exercise.videoLink
+//                             }
+//                             target="_blank"
+//                             className="text-primary hover:text-primary/80 transition-colors"
+//                         > */}
+//                         <ExternalLink className="w-4 h-4" />
+//                         <span className="sr-only">
+//                             Watch video
+//                         </span>
+//                         {/* </Link> */}
+//                     </div>
+//                     <span className="text-sm text-gray-600">
+//                         Targets:{' '}
+//                         {
+//                             exercise.muscleGroup
+//                         }
+//                     </span>
+//                 </li>
+//             )
+//         )}
+//     </ul>
+// ) : (
+//     <p className="text-gray-500 italic">
+//         {workout}
+//     </p>
+// )}
