@@ -181,7 +181,7 @@ export default function WorkoutPlan(
 
     props.days.forEach((day) => {
         console.log(day)
-        if (Object.keys(weeks).includes(day)) {
+        if (Object.keys(props.workoutPlan).includes(day)) {
             // @ts-ignore
             _weeks[day] = weeks[day]
         } else {
