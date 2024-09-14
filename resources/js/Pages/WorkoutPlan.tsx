@@ -2,6 +2,7 @@ import { Button } from '@/Components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
 import { Exercise, PageProps, WorkoutPlanSet, WorkoutPlanType } from '@/types'
 import { Dumbbell, Clock, ExternalLink, Link, Mail } from 'lucide-react'
+import { useState } from 'react'
 
 // type Exercise = {
 //     name: string
@@ -180,7 +181,7 @@ export default function WorkoutPlan(
     }>
 ) {
     const _weeks: WorkoutPlanProps = {}
-    console.log(props.workoutPlan)
+    const [sended, setSended] = useState(false)
     props.days.forEach((day) => {
         if (Object.keys(props.groupedByDayWithFocusMuscles).includes(day)) {
             // @ts-ignore
