@@ -179,7 +179,7 @@ export default function WorkoutPlan(
     }>
 ) {
     const _weeks: WorkoutPlanProps = {}
-    console.log(props.workoutPlan)
+
     props.days.forEach((day) => {
         if (Object.keys(weeks).includes(day)) {
             // @ts-ignore
@@ -189,7 +189,6 @@ export default function WorkoutPlan(
             _weeks[day] = 'Rest day'
         }
     })
-    console.log(_weeks)
 
     return (
         <div className="container mx-auto p-4 max-w-2xl">
