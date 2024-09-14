@@ -13,6 +13,16 @@ type WorkoutDay = {
     exercises: Exercise[]
 }
 
+interface WorkoutPlanProps {
+    monday: WorkoutDay
+    tuesday: WorkoutDay
+    wednesday: string
+    thursday: WorkoutDay
+    friday: WorkoutDay
+    saturday: WorkoutDay
+    sunday: string
+}
+
 export default function WorkoutPlan(
     props: PageProps<{
         workoutPlan: any
