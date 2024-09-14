@@ -216,76 +216,86 @@ export default function WorkoutPlan(
                             </span>
                         </div>
                         {props.days.map((day) => (
-                            <div
-                                key={day}
-                                className="border-t pt-4 first:border-t-0 first:pt-0"
-                            >
-                                <div className="flex justify-between items-center mb-2">
-                                    <h3 className="text-lg capitalize font-semibold">
-                                        {day}
-                                    </h3>
-                                    {/* @ts-ignore */}
-                                    {typeof _weeks[day] !== 'string' && (
-                                        <span className="text-sm font-medium px-2 py-1 bg-primary/10 text-primary rounded-full capitalize">
-                                            {/* @ts-ignore */}
-                                            {console.log(_weeks[day])}
-                                            {/* @ts-ignore */}
-                                            {_weeks[
-                                                day
-                                            ].focus_muscle_groups.join(', ')}
-                                        </span>
-                                    )}
-                                </div>
+                            <>
                                 {/* @ts-ignore */}
-                                {typeof _weeks[day] !== 'string' ? (
-                                    <ul className="list-disc pl-5 space-y-2">
+                                {typeof _weeks[day] ? (
+                                    <div
+                                        key={day}
+                                        className="border-t pt-4 first:border-t-0 first:pt-0"
+                                    >
+                                        <div className="flex justify-between items-center mb-2">
+                                            <h3 className="text-lg capitalize font-semibold">
+                                                {day}
+                                            </h3>
+                                            {/* @ts-ignore */}
+                                            {typeof _weeks[day] !==
+                                                'string' && (
+                                                <span className="text-sm font-medium px-2 py-1 bg-primary/10 text-primary rounded-full capitalize">
+                                                    {/* @ts-ignore */}
+                                                    {console.log(_weeks[day])}
+                                                    {/* @ts-ignore */}
+                                                    {_weeks[
+                                                        day
+                                                    ].focus_muscle_groups.join(
+                                                        ', '
+                                                    )}
+                                                </span>
+                                            )}
+                                        </div>
                                         {/* @ts-ignore */}
-                                        {_weeks[day].exercises.map(
-                                            (
-                                                exercise: WorkoutPlanSet,
-                                                index: number
-                                            ) => (
-                                                <li key={index}>
-                                                    <div className="flex items-center justify-between">
-                                                        <span className="font-medium">
-                                                            {
-                                                                exercise
-                                                                    .exercise
-                                                                    .name
-                                                            }
-                                                        </span>
-                                                        <a
-                                                            href={
-                                                                exercise
-                                                                    .exercise
-                                                                    .twitter_url
-                                                            }
-                                                            target="_blank"
-                                                        >
-                                                            <ExternalLink className="w-4 h-4" />
-                                                            <span className="sr-only">
-                                                                Watch video
+                                        {typeof _weeks[day] !== 'string' ? (
+                                            <ul className="list-disc pl-5 space-y-2">
+                                                {/* @ts-ignore */}
+                                                {_weeks[day].exercises.map(
+                                                    (
+                                                        exercise: WorkoutPlanSet,
+                                                        index: number
+                                                    ) => (
+                                                        <li key={index}>
+                                                            <div className="flex items-center justify-between">
+                                                                <span className="font-medium">
+                                                                    {
+                                                                        exercise
+                                                                            .exercise
+                                                                            .name
+                                                                    }
+                                                                </span>
+                                                                <a
+                                                                    href={
+                                                                        exercise
+                                                                            .exercise
+                                                                            .twitter_url
+                                                                    }
+                                                                    target="_blank"
+                                                                >
+                                                                    <ExternalLink className="w-4 h-4" />
+                                                                    <span className="sr-only">
+                                                                        Watch
+                                                                        video
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+                                                            <span className="text-sm text-gray-600">
+                                                                Targets:{' '}
+                                                                {
+                                                                    exercise
+                                                                        .exercise
+                                                                        .trained_muscles
+                                                                }
                                                             </span>
-                                                        </a>
-                                                    </div>
-                                                    <span className="text-sm text-gray-600">
-                                                        Targets:{' '}
-                                                        {
-                                                            exercise.exercise
-                                                                .trained_muscles
-                                                        }
-                                                    </span>
-                                                </li>
-                                            )
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        ) : (
+                                            <p className="text-gray-500 italic">
+                                                {/* @ts-ignore */}
+                                                {_weeks[day]}
+                                            </p>
                                         )}
-                                    </ul>
-                                ) : (
-                                    <p className="text-gray-500 italic">
-                                        {/* @ts-ignore */}
-                                        {_weeks[day]}
-                                    </p>
-                                )}
-                            </div>
+                                    </div>
+                                ) : null}
+                            </>
                         ))}
                     </div>
                 </CardContent>
