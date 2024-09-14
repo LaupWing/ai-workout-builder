@@ -178,9 +178,16 @@ export default function WorkoutPlan(
     }>
 ) {
     const _weeks: WorkoutPlanProps = {}
-    console.log(props.days)
-    Object.keys(weeks).forEach((day) => {
+
+    props.days.forEach((day) => {
         console.log(day)
+        if (Object.keys(weeks).includes(day)) {
+            // @ts-ignore
+            _weeks[day] = weeks[day]
+        } else {
+            // @ts-ignore
+            _weeks[day] = 'Rest day'
+        }
         // if (props.workoutPlan[day]) {
         //     // @ts-ignore
         //     _weeks[day] = props.workoutPlan[day]
@@ -189,7 +196,7 @@ export default function WorkoutPlan(
         //     _weeks[day] = weeks[day]
         // }
     })
-    console.log(weeks)
+    console.log(_weeks)
 
     const exampleWorkout: Record<string, WorkoutDay | string> = {
         Monday: {
