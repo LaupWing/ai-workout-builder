@@ -154,10 +154,12 @@ Route::get('/workout-plan', function (Request $request) {
     if (!$workoutPlan) {
         return redirect('/')->with('error', 'No workout plan found');
     }
+    logger($workoutPlan);
 
     return Inertia::render('WorkoutPlan', [
-        'workoutPlan' => $workoutPlan->groupByDayWithFocusMuscles(),
-        'days' => WorkoutPlanSets::getDayOptions()
+        'workoutPlan' => $workoutPlan,
+        'days' => WorkoutPlanSets::getDayOptions(),
+        'groupedByDayWithFocusMuscles' => $workoutPlan->groupByDayWithFocusMuscles(),
     ]);
 });
 

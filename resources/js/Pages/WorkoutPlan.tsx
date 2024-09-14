@@ -174,16 +174,16 @@ const weeks: WorkoutPlanProps = {
 
 export default function WorkoutPlan(
     props: PageProps<{
-        workoutPlan: any
+        groupedByDayWithFocusMuscles: any
         days: string[]
     }>
 ) {
     const _weeks: WorkoutPlanProps = {}
-    console.log(props.workoutPlan)
+
     props.days.forEach((day) => {
-        if (Object.keys(props.workoutPlan).includes(day)) {
+        if (Object.keys(props.groupedByDayWithFocusMuscles).includes(day)) {
             // @ts-ignore
-            _weeks[day] = props.workoutPlan[day]
+            _weeks[day] = props.groupedByDayWithFocusMuscles[day]
         } else {
             // @ts-ignore
             _weeks[day] = 'Rest day'
