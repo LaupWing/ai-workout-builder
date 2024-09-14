@@ -1,6 +1,7 @@
+import { Button } from '@/Components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
 import { Exercise, PageProps, WorkoutPlanSet } from '@/types'
-import { Dumbbell, Clock, ExternalLink, Link } from 'lucide-react'
+import { Dumbbell, Clock, ExternalLink, Link, Mail } from 'lucide-react'
 
 // type Exercise = {
 //     name: string
@@ -195,7 +196,7 @@ export default function WorkoutPlan(
             <Card>
                 <CardHeader>
                     <CardTitle className="text-2xl font-bold flex items-center gap-2">
-                        <Dumbbell className="w-6 h-6" />
+                        <Dumbbell className="w-6 h-6 flex-shrink-0" />
                         Example Weekly Workout Plan
                     </CardTitle>
                 </CardHeader>
@@ -207,6 +208,9 @@ export default function WorkoutPlan(
                                 Workout Duration: 60 minutes per session
                             </span>
                         </div>
+                        <Button className="flex gap-1 uppercase text-sm items-center">
+                            Send to my email <Mail size={20} />
+                        </Button>
                         {props.days.map((day) => (
                             <>
                                 {/* @ts-ignore */}
