@@ -1,12 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
-import { PageProps, WorkoutPlanSet } from '@/types'
+import { Exercise, PageProps, WorkoutPlanSet } from '@/types'
 import { Dumbbell, Clock, ExternalLink, Link } from 'lucide-react'
 
-type Exercise = {
-    name: string
-    muscleGroup: string
-    videoLink: string
-}
+// type Exercise = {
+//     name: string
+//     muscleGroup: string
+//     videoLink: string
+// }
 
 type WorkoutDay = {
     mainFocus: string
@@ -198,150 +198,6 @@ export default function WorkoutPlan(
     })
     console.log(_weeks)
 
-    const exampleWorkout: Record<string, WorkoutDay | string> = {
-        Monday: {
-            mainFocus: 'Chest & Triceps',
-            exercises: [
-                {
-                    name: '3 x 10 Bench Press',
-                    muscleGroup: 'Chest',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/benchpress',
-                },
-                {
-                    name: '3 x 12 Incline Dumbbell Press',
-                    muscleGroup: 'Upper Chest',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/inclinepress',
-                },
-                {
-                    name: '3 x 15 Push-ups',
-                    muscleGroup: 'Chest, Shoulders, Triceps',
-                    videoLink: 'https://twitter.com/youraccount/status/pushups',
-                },
-                {
-                    name: '3 x 12 Tricep Pushdowns',
-                    muscleGroup: 'Triceps',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/triceppushdowns',
-                },
-            ],
-        },
-        Tuesday: {
-            mainFocus: 'Legs & Core',
-            exercises: [
-                {
-                    name: '3 x 10 Squats',
-                    muscleGroup: 'Quadriceps, Glutes, Hamstrings',
-                    videoLink: 'https://twitter.com/youraccount/status/squats',
-                },
-                {
-                    name: '3 x 12 Lunges',
-                    muscleGroup: 'Quadriceps, Glutes, Hamstrings',
-                    videoLink: 'https://twitter.com/youraccount/status/lunges',
-                },
-                {
-                    name: '3 x 15 Leg Press',
-                    muscleGroup: 'Quadriceps, Glutes',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/legpress',
-                },
-                {
-                    name: '3 x 20 Crunches',
-                    muscleGroup: 'Core',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/crunches',
-                },
-            ],
-        },
-        Wednesday: 'Rest day',
-        Thursday: {
-            mainFocus: 'Back & Biceps',
-            exercises: [
-                {
-                    name: '3 x 10 Pull-ups',
-                    muscleGroup: 'Back, Biceps',
-                    videoLink: 'https://twitter.com/youraccount/status/pullups',
-                },
-                {
-                    name: '3 x 12 Bent-over Rows',
-                    muscleGroup: 'Back',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/bentoverrows',
-                },
-                {
-                    name: '3 x 15 Lat Pulldowns',
-                    muscleGroup: 'Back, Biceps',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/latpulldowns',
-                },
-                {
-                    name: '3 x 10 Bicep Curls',
-                    muscleGroup: 'Biceps',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/bicepcurls',
-                },
-            ],
-        },
-        Friday: {
-            mainFocus: 'Shoulders & Core',
-            exercises: [
-                {
-                    name: '3 x 10 Military Press',
-                    muscleGroup: 'Shoulders',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/militarypress',
-                },
-                {
-                    name: '3 x 12 Lateral Raises',
-                    muscleGroup: 'Lateral Deltoids',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/lateralraises',
-                },
-                {
-                    name: '3 x 15 Front Raises',
-                    muscleGroup: 'Front Deltoids',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/frontraises',
-                },
-                {
-                    name: '3 x 30s Plank',
-                    muscleGroup: 'Core',
-                    videoLink: 'https://twitter.com/youraccount/status/plank',
-                },
-            ],
-        },
-        Saturday: {
-            mainFocus: 'Legs & Core',
-            exercises: [
-                {
-                    name: '3 x 12 Lunges',
-                    muscleGroup: 'Quadriceps, Glutes, Hamstrings',
-                    videoLink: 'https://twitter.com/youraccount/status/lunges',
-                },
-                {
-                    name: '3 x 15 Leg Press',
-                    muscleGroup: 'Quadriceps, Glutes',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/legpress',
-                },
-                {
-                    name: '3 x 12 Calf Raises',
-                    muscleGroup: 'Calves',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/calfraises',
-                },
-                {
-                    name: '3 x 15 Russian Twists',
-                    muscleGroup: 'Core, Obliques',
-                    videoLink:
-                        'https://twitter.com/youraccount/status/russiantwists',
-                },
-            ],
-        },
-        Sunday: 'Rest day',
-    }
-
     return (
         <div className="container mx-auto p-4 max-w-2xl">
             <Card>
@@ -384,7 +240,7 @@ export default function WorkoutPlan(
                                         {/* @ts-ignore */}
                                         {_weeks[day].exercises.map(
                                             (
-                                                exercise: Exercise,
+                                                exercise: WorkoutPlanSet,
                                                 index: number
                                             ) => (
                                                 <li key={index}>
@@ -407,7 +263,9 @@ export default function WorkoutPlan(
                                                     </div>
                                                     <span className="text-sm text-gray-600">
                                                         Targets:{' '}
-                                                        {exercise.muscleGroup}
+                                                        {
+                                                            exercise.trained_muscles
+                                                        }
                                                     </span>
                                                 </li>
                                             )
