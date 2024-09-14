@@ -181,7 +181,7 @@ export default function WorkoutPlan(
     console.log(props.workoutPlan)
     props.days.forEach((day) => {
         console.log(day)
-        if (Object.keys(props.workoutPlan).includes(day)) {
+        if (Object.keys(weeks).includes(day)) {
             // @ts-ignore
             _weeks[day] = weeks[day]
         } else {
@@ -232,8 +232,6 @@ export default function WorkoutPlan(
                                                 'string' && (
                                                 <span className="text-sm font-medium px-2 py-1 bg-primary/10 text-primary rounded-full capitalize">
                                                     {/* @ts-ignore */}
-                                                    {console.log(_weeks[day])}
-                                                    {/* @ts-ignore */}
                                                     {_weeks[
                                                         day
                                                     ].focus_muscle_groups.join(
@@ -254,6 +252,13 @@ export default function WorkoutPlan(
                                                         <li key={index}>
                                                             <div className="flex items-center justify-between">
                                                                 <span className="font-medium">
+                                                                    {
+                                                                        exercise.sets
+                                                                    }{' '}
+                                                                    x{' '}
+                                                                    {
+                                                                        exercise.reps
+                                                                    }{' '}
                                                                     {
                                                                         exercise
                                                                             .exercise
