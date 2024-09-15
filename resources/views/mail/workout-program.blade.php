@@ -84,16 +84,17 @@
                 @endphp
                 <div class="day-header">
                     <h3>{{ ucfirst($day) }}</h3>
-                    @if (is_array($weekData))
+                    @if (is_array($weekData) && isset($weekData['focus_muscle_groups']))
                         <span class="focus-muscles">
-                            {{ implode(', ', $weekData['focus_muscle_groups']) }}
+                            {{ logger($weekData['focus_muscle_groups']) }}
+                            {{ implode(', ', $weekData['focus_muscle_groups']->toArray()) }}
                         </span>
                     @endif
                 </div>
 
                 @if (is_array($weekData))
-                    <ul class="exercise-list">
-                        @foreach ($weekData['exercises'] as $exercise)
+                    {{-- <ul class="exercise-list">
+                        @foreach ($weekData->exercises as $exercise)
                             <li class="exercise-item">
                                 <div>
                                     <strong>{{ $exercise['sets'] }} x {{ $exercise['reps'] }}
@@ -105,7 +106,7 @@
                                 <span>Targets: {{ $exercise['exercise']['trained_muscles'] }}</span>
                             </li>
                         @endforeach
-                    </ul>
+                    </ul> --}}
                 @else
                     <p class="italic">{{ $weekData }}</p>
                 @endif
