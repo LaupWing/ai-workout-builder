@@ -1,6 +1,8 @@
 import { Button } from '@/Components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
+import { toast } from '@/hooks/use-toast'
 import { Exercise, PageProps, WorkoutPlanSet, WorkoutPlanType } from '@/types'
+import { router } from '@inertiajs/react'
 import { Dumbbell, Clock, ExternalLink, Link, Mail } from 'lucide-react'
 import { useState } from 'react'
 
@@ -51,11 +53,22 @@ export default function WorkoutPlan(
 
     const sendProgram = async () => {
         setSended(true)
-        console.log(props.workoutPlan)
-        // await axios.post('/api/workout-plan/send', {
-        //     workoutPlan: props.workoutPlan,
-        //     days: _weeks,
-        // })
+        router.get(
+            `/send-workout-plan/${props.workoutPlan.id}`,
+            {},
+            {
+                preserveState: true,
+                onStart: () => {
+                    console.log('sending')
+                },
+                onSuccess: () => {
+                    toast({
+                        title: 'Workout Plan Sent',
+                        description: 'Check your email for the workout plan',
+                    })
+                },
+            }
+        )
     }
 
     return (
