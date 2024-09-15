@@ -12,8 +12,8 @@ import { Label } from '@/Components/ui/label'
 import { Button } from '@/Components/ui/button'
 import { Slider } from '@/Components/ui/slider'
 import { MuscleGroup, PageProps } from '@/types'
-import { router, usePage } from '@inertiajs/react'
-import { toast } from '@/hooks/use-toast'
+import { router } from '@inertiajs/react'
+
 import {
     Dialog,
     DialogContent,
