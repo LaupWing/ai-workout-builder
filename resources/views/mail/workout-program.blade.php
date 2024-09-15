@@ -96,14 +96,15 @@
                     <ul class="exercise-list">
                         @foreach ($weekData->exercises->toArray() as $exercise)
                             <li class="exercise-item">
-                                <div>
+                                {{ logger($exercise) }}
+                                {{-- <div>
                                     <strong>{{ $exercise['sets'] }} x {{ $exercise['reps'] }}
                                         {{ $exercise['exercise']['name'] }}</strong>
                                     @if (!empty($exercise['exercise']['twitter_url']))
                                         <a href="{{ $exercise['exercise']['twitter_url'] }}" target="_blank">🔗</a>
                                     @endif
                                 </div>
-                                <span>Targets: {{ $exercise['exercise']['trained_muscles'] }}</span>
+                                <span>Targets: {{ $exercise['exercise']['trained_muscles'] }}</span> --}}
                             </li>
                         @endforeach
                     </ul>
