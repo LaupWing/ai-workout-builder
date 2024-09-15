@@ -192,6 +192,14 @@ export default function WorkoutPlan(
         }
     })
 
+    const sendProgram = async () => {
+        setSended(true)
+        // await axios.post('/api/workout-plan/send', {
+        //     workoutPlan: props.workoutPlan,
+        //     days: _weeks,
+        // })
+    }
+
     return (
         <div className="container mx-auto p-4 max-w-2xl">
             <Card>
@@ -212,8 +220,9 @@ export default function WorkoutPlan(
                             </span>
                         </div>
                         <Button
-                            disabled
+                            disabled={sended}
                             className="flex gap-1 uppercase text-sm items-center"
+                            onClick={sendProgram}
                         >
                             Send to my email <Mail size={20} />
                         </Button>
