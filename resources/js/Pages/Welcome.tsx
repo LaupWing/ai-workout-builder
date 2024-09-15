@@ -45,6 +45,7 @@ export default function WorkoutGenerator({
     const [duration, setDuration] = useState<number>(60)
     const [email, setEmail] = useState<string>('')
     const [showModal, setShowModal] = useState<boolean>(false)
+
     const focusMusclesFiltered = focusMuscles.filter((m) =>
         selectedMuscles.includes(m)
     )
@@ -53,14 +54,15 @@ export default function WorkoutGenerator({
             error: string
         }
     }>()
-
-    if (page.props.flash.error) {
-        toast({
-            variant: 'destructive',
-            title: 'Error',
-            description: page.props.flash.error,
-        })
-    }
+    useEffect(() => {
+        if (page.props.flash.error) {
+            toast({
+                variant: 'destructive',
+                title: 'Error',
+                description: page.props.flash.error,
+            })
+        }
+    }, [page.props.flash.error])
 
     const handleToggleMuscle = (muscle: string) => {
         setSelectedMuscles((prev) =>
