@@ -64,6 +64,35 @@
             font-style: italic;
             color: #999;
         }
+
+        .cta {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #00796b;
+            color: #ffffff;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .cta h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .cta p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .cta a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #00796b;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -117,6 +146,19 @@
                 </div>
             @endif
         @endforeach
+        <!-- CTA Section -->
+        <div class="cta">
+            <h2>Get Your Personalized Workout Plan</h2>
+            <p>
+                The best workout plans are tailored to your body, goals, and lifestyle. I’ll create a custom plan just
+                for you, so you can achieve results without the guesswork.
+            </p>
+            <p>
+                With my 14 years of experience, I will build your workout plan based on your goals, fitness level, and
+                equipment availability. No more wasting time, get started now!
+            </p>
+            <a href="https://tailoredworkoutplan.com/">Get My Plan</a>
+        </div>
     </div>
 </body>
 
