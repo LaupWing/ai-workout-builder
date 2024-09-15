@@ -173,7 +173,7 @@ Route::get('/send-workout-plan/{workoutPlan}', function (WorkoutPlan $workoutPla
         $days,
         $workoutPlan,
     ));
-    return redirect('/')->with('success', 'Workout plan deleted');
+    return redirect()->back();
 });
 
 Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workoutPlan) {
