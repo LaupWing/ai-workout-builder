@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Requests\GenerateWorkoutRequest;
+use App\Mail\WorkoutProgram;
 use App\Models\Exercise;
 use App\Models\MuscleGroup;
 use App\Models\WorkoutPlan;
 use App\Models\WorkoutPlanSets;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -160,6 +162,18 @@ Route::get('/workout-plan', function (Request $request) {
         'days' => WorkoutPlanSets::getDayOptions(),
         'groupedByDayWithFocusMuscles' => $workoutPlan->groupByDayWithFocusMuscles(),
     ]);
+});
+
+Route::get('/send-workout-plan/{workoutPlan}', function (WorkoutPlan $workoutPlan) {
+
+    $days = WorkoutPlanSets::getDayOptions();
+
+    Mail::to($workoutPlan->email)->send(new WorkoutProgram(
+        $workoutPlan->groupByDayWithFocusMuscles(),
+        $days,
+        $workoutPlan,
+    ));
+    return redirect('/')->with('success', 'Workout plan deleted');
 });
 
 Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workoutPlan) {
