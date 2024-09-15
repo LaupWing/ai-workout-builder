@@ -1,12 +1,5 @@
-import { useEffect, useState } from 'react'
-import {
-    Dumbbell,
-    Clock,
-    Target,
-    Star,
-    Loader,
-    LoaderPinwheel,
-} from 'lucide-react'
+import { useState } from 'react'
+import { Dumbbell, Clock, Target, Star, LoaderPinwheel } from 'lucide-react'
 import {
     Card,
     CardContent,
@@ -49,20 +42,6 @@ export default function WorkoutGenerator({
     const focusMusclesFiltered = focusMuscles.filter((m) =>
         selectedMuscles.includes(m)
     )
-    const page = usePage<{
-        flash: {
-            error: string
-        }
-    }>()
-    useEffect(() => {
-        if (page.props.flash.error) {
-            toast({
-                variant: 'destructive',
-                title: 'Error',
-                description: page.props.flash.error,
-            })
-        }
-    }, [page.props.flash.error])
 
     const handleToggleMuscle = (muscle: string) => {
         setSelectedMuscles((prev) =>
