@@ -8,6 +8,7 @@ use App\Models\WorkoutPlan;
 use App\Models\WorkoutPlanSets;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -185,6 +186,14 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     $selectedMuscles = MuscleGroup::whereIn('id', $data['selectedMuscles'])->get();
     $focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
     $selectedDays =  implode(', ', $data["selectedDays"]);
+
+    $api_key = config("services.beehiiv.secret");
+
+    Http::withHeaders([
+        "Authorization" => "Bearer $api_key"
+    ])->post("https://api.beehiiv.com/v2/publications/pub_933eff84-523b-4a44-8fc1-2c0166fa0fd8/subscriptions", [
+        "email" => $request->email,
+    ]);
 
     $availableExercises = collect(Exercise::all())->map(function ($exercise) {
         return [
