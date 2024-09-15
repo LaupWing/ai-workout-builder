@@ -93,8 +93,8 @@
                 </div>
 
                 @if (is_array($weekData))
-                    {{-- <ul class="exercise-list">
-                        @foreach ($weekData->exercises as $exercise)
+                    <ul class="exercise-list">
+                        @foreach ($weekData->exercises->toArray() as $exercise)
                             <li class="exercise-item">
                                 <div>
                                     <strong>{{ $exercise['sets'] }} x {{ $exercise['reps'] }}
@@ -106,7 +106,7 @@
                                 <span>Targets: {{ $exercise['exercise']['trained_muscles'] }}</span>
                             </li>
                         @endforeach
-                    </ul> --}}
+                    </ul>
                 @else
                     <p class="italic">{{ $weekData }}</p>
                 @endif
