@@ -18,8 +18,9 @@ class WorkoutProgram extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public WorkoutPlan $workoutPlan,
-        public array $days
+        public $groupedByDayWithFocusMuscles,
+        public $days,
+        public $workoutPlan,
     ) {
         //
     }
