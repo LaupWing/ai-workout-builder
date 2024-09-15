@@ -41,6 +41,7 @@ class WorkoutProgram extends Mailable
     {
         return new Content(
             view: 'mail.workout-program',
+
         );
     }
 
