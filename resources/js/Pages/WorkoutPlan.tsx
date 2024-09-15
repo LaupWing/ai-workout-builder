@@ -1,21 +1,10 @@
 import { Button } from '@/Components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
 import { toast } from '@/hooks/use-toast'
-import { Exercise, PageProps, WorkoutPlanSet, WorkoutPlanType } from '@/types'
+import { PageProps, WorkoutPlanSet, WorkoutPlanType } from '@/types'
 import { router } from '@inertiajs/react'
 import { Dumbbell, Clock, ExternalLink, Link, Mail } from 'lucide-react'
 import { useState } from 'react'
-
-// type Exercise = {
-//     name: string
-//     muscleGroup: string
-//     videoLink: string
-// }
-
-type WorkoutDay = {
-    mainFocus: string
-    exercises: Exercise[]
-}
 
 type WorkoutDayProps = {
     exercises: WorkoutPlanSet[]
