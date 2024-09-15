@@ -86,7 +86,6 @@
                     <h3>{{ ucfirst($day) }}</h3>
                     @if (is_array($weekData) && isset($weekData['focus_muscle_groups']))
                         <span class="focus-muscles">
-                            {{ logger($weekData['focus_muscle_groups']) }}
                             {{ implode(', ', $weekData['focus_muscle_groups']->toArray()) }}
                         </span>
                     @endif
