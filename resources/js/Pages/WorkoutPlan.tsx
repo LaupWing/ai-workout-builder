@@ -194,6 +194,7 @@ export default function WorkoutPlan(
 
     const sendProgram = async () => {
         setSended(true)
+        console.log(props.workoutPlan)
         // await axios.post('/api/workout-plan/send', {
         //     workoutPlan: props.workoutPlan,
         //     days: _weeks,
