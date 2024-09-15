@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\WorkoutProgram;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class SendEmails extends Command
 {
@@ -25,6 +27,11 @@ class SendEmails extends Command
      */
     public function handle()
     {
-        //
+        $workoutPlan = WorkoutPlan::first();
+        Mail::to('laupwing@gmail.com')->send(new WorkoutProgram([
+            'groupedByDayWithFocusMuscles' => $workoutPlan->groupedByDayWithFocusMuscles,
+            'days' => [],
+            'workoutPlan' => [],
+        ]));
     }
 }
