@@ -204,6 +204,7 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     });
 
     $open_ai = OpenAI::client(env("OPENAI_API_KEY"));
+    logger($selectedDays);
     while (true) {
         $response = $open_ai->chat()->create([
             "model" => "gpt-3.5-turbo-1106",
