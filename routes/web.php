@@ -311,6 +311,10 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
         if ($workoutData === 'Rest day') {
             continue;
         }
+        if (!isset($workoutData['exercises'])) {
+            continue;
+        }
+
         foreach ($workoutData['exercises'] as $exercise) {
             $workout->workoutPlanSets()->create([
                 'sets' => $exercise['sets'],
