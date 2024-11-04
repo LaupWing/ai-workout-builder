@@ -241,7 +241,7 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
                     min reps = 7
                     max reps = 20
     
-                    Here is an example workoutplan: {$workoutPlan}
+                    Here is an example workoutplan: {$workoutPlan} NOTE THIS IS ONLY AN EXAMPLE. I WANT YOU TO GENERATE A NEW ONE FROM THE NEW PROMPT.
                     "
                 ],
                 [
