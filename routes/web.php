@@ -247,7 +247,7 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
                     "role" => "user",
                     "content" => "I want to generate a workout plan for the following muscle groups: {$selectedMuscles->pluck('name')->implode(', ')}. 
                     
-                    I can only workout on the following days: {$selectedDays}. The rest should be rest days.
+                    I want to workout on the following days: {$selectedDays}. The rest should be rest days.
                     
                     I want to focus on the following muscle groups: {$focusMuscles->pluck('name')->implode(', ')}. 
                     
