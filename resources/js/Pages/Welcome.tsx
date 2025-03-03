@@ -31,9 +31,16 @@ export default function WorkoutGenerator({
     daysOfWeek: string[]
     muscleGroups: MuscleGroup[]
 }>) {
-    const [selectedMuscles, setSelectedMuscles] = useState<string[]>([])
+    const [selectedMuscles, setSelectedMuscles] = useState<string[]>([
+        ...muscleGroups.map((group) => group.id),
+    ])
+
     const [focusMuscles, setFocusMuscles] = useState<string[]>([])
-    const [selectedDays, setSelectedDays] = useState<string[]>([])
+    const [selectedDays, setSelectedDays] = useState<string[]>([
+        'monday',
+        'wednesday',
+        'friday',
+    ])
     const [loading, setLoading] = useState<boolean>(false)
     const [duration, setDuration] = useState<number>(60)
     const [email, setEmail] = useState<string>('')
