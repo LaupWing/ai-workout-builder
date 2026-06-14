@@ -187,11 +187,11 @@ Route::post('/generate', function (GenerateWorkoutRequest $request) use ($workou
     $focusMuscles = MuscleGroup::whereIn('id', $data["focusMuscles"])->get();
     $selectedDays =  implode(', ', $data["selectedDays"]);
 
-    $api_key = config("services.beehiiv.secret");
-
+    // Newsletter signup → loc-nguyen.com inquiry CPT (subject: newsletter).
+    // Swapped out from Beehiiv; the Beehiiv config remains in place if we need it back.
     Http::withHeaders([
-        "Authorization" => "Bearer $api_key"
-    ])->post("https://api.beehiiv.com/v2/publications/pub_933eff84-523b-4a44-8fc1-2c0166fa0fd8/subscriptions", [
+        "X-Snel-Key" => config("services.snel_newsletter.key"),
+    ])->post(config("services.snel_newsletter.endpoint"), [
         "email" => $request->email,
     ]);
 

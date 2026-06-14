@@ -37,4 +37,8 @@ return [
     "beehiiv" => [
         "secret" => env("BEEHIIV_SECRET"),
     ],
+    "snel_newsletter" => [
+        "endpoint" => env("SNEL_NEWSLETTER_ENDPOINT", "https://loc-nguyen.com/wp-json/snel/v1/newsletter"),
+        "key" => env("SNEL_NEWSLETTER_KEY"),
+    ],
 ];
