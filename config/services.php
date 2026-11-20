@@ -41,4 +41,8 @@ return [
         "endpoint" => env("SNEL_NEWSLETTER_ENDPOINT", "https://loc-nguyen.com/wp-json/snel/v1/newsletter"),
         "key" => env("SNEL_NEWSLETTER_KEY"),
     ],
+
+    "openai" => [
+        "key" => env("OPENAI_API_KEY"),
+    ],
 ];
